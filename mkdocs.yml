@@ -1,0 +1,104 @@
+---
+site_name: Fortinet Competitive Environment Reference Architecture
+site_description: >-
+  Fortinet Competitive Environment Reference Architecture
+site_url: https://ajlab-gh.github.io/ftnt-demo
+site_author: Alex Jammes
+
+repo_name: "AJLab-GH/ftnt-demo"
+repo_url: "https://github.com/AJLab-GH/ftnt-demo"
+edit_uri: edit/main/docs/
+
+# yamllint disable-line rule:line-length
+copyright: "Try to be nice."
+
+extra:
+  annotate:
+    json: [.s2]
+  generator: false
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+
+#extra_css: [extra.css]
+# extra_javascript: [extra.js]
+
+theme:
+  name: material
+  #custom_dir: docs/overrides
+  include_sidebar: false
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - announce.dismiss
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    # - content.tabs.link
+    - content.tooltips
+    - header.autohide
+    - navigation.footer
+    # - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    # - navigation.prune
+    # - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - navigation.path
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      primary: black
+      accent: grey
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      primary: grey
+      accent: black
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      toc_depth: "1-1"
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tilde
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: AJLab-GH
+      repo: ftnt-demo
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+plugins:
+  - glightbox
+  - social
+  - search:
+      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - minify:
+      minify_html: true
