@@ -1,0 +1,53 @@
+---
+    name: "pages-build-integration"
+
+    on: # yamllint disable-line rule:truthy
+      workflow_dispatch:
+      push:
+        branches:
+          - main
+        paths:
+          - "docs/**"
+          - "mkdocs.yml"
+          - "requirements.txt"
+          - "README.md"
+          - ".github/workflows/pages-build-integration.yml"
+
+    concurrency:
+      group: "pages-build-integration"
+      cancel-in-progress: true
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    jobs:
+      pages-build-integration:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f
+            with:
+              fetch-depth: 0
+
+          #  - name: Configure GitHub Pages
+          #  uses: actions/configure-pages@f156874f8191504dae5b037505266ed5dda6c382
+
+          - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+            with:
+              python-version: 3.x
+
+          - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+
+          - uses: actions/cache@v4
+            with:
+              key: mkdocs-material-${{ env.cache_id }}
+              path: .cache
+              restore-keys: |
+                mkdocs-material-
+
+          - run: |
+              pip install --upgrade pip
+              pip install -r requirements.txt
+
+          - name: Build Docs
+            run: mkdocs gh-deploy --force
