@@ -7,7 +7,7 @@ on:
     push:
       branches:
         - main
-        - version-1.1
+        - version-0
 env:
   # If you use private modules you'll need this env variable to use
   # the same ssh-agent socket value across all jobs & steps.
