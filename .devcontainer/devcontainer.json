@@ -1,9 +1,9 @@
 {
-    "image": "docker.io/robinmordasiewicz/devcontainer:latest",
-    "initializeCommand": "docker pull docker.io/robinmordasiewicz/devcontainer:latest",
-    "name": "cfos-aks",
-    "runArgs": [
-      "--name=cfos-aks",
-      "--hostname=cfos-aks"
-    ]
-  }
+  "image": "docker.io/robinmordasiewicz/devcontainer:latest",
+  "initializeCommand": "docker pull docker.io/robinmordasiewicz/devcontainer:latest",
+  "name": "cfos-aks",
+  "runArgs": [
+    "--name=cfos-aks",
+    "--hostname=cfos-aks"
+  ]
+}
