@@ -3,7 +3,7 @@
 
     on: # yamllint disable-line rule:truthy
       pull_request:
-        branches: [ main ]
+        branches: [ version-0 ]
 
     permissions:
       contents: read
