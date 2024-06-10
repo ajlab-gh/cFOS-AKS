@@ -1,17 +1,17 @@
 ---
     name: fortidevsec
-    
+
     on: # yamllint disable-line rule:truthy
       pull_request:
         branches: [ main ]
-    
+
     permissions:
       contents: read
-    
+
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
-    
+
     jobs:
       init:
         name: init
