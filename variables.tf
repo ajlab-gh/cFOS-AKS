@@ -9,3 +9,8 @@ variable "enable_output" {
   description = "Enable/Disable output"
   default     = false
 }
+variable "manifest_url" {
+  description = "URL to the Kubernetes manifest file"
+  type        = string
+  default     = "https://raw.githubusercontent.com/AJLab-GH/microservices-demo/main/release/kubernetes-manifests.yaml"
+}
