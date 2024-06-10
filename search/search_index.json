@@ -1,0 +1,1 @@
+{"config":{"lang":["en"],"separator":"[\\s\\u200b\\-_,:!=\\[\\]()\"`/]+|\\.(?!\\d)|&[lg]t;|(?!\\b)(?=[A-Z][a-z])","pipeline":["stopWordFilter"]},"docs":[{"location":"","title":"cFOS-AKS","text":"<p>A Demo of Container FortiOS (cFOS) solution deployed into Googles K8s Manifest.</p>"}]}
