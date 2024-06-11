@@ -1,16 +1,16 @@
 locals {
   kubernetes_clusters = {
-    (local.kubernetes_cluster_name_01) = {
-      name                = local.kubernetes_cluster_name_01
-      location            = azurerm_resource_group.resource_group[local.resource_group_name].location
-      resource_group_name = azurerm_resource_group.resource_group[local.resource_group_name].name
-      dns_prefix          = local.kubernetes_cluster_name_01
+    for region in var.regions :
+    "${var.prefix}-aks-${region}" => {
+      name                = "${var.prefix}-aks-${region}"
+      location            = azurerm_resource_group.resource_group["${var.prefix}-${region}-aks-rg"].location
+      resource_group_name = azurerm_resource_group.resource_group["${var.prefix}-${region}-aks-rg"].name
+      dns_prefix          = "${var.prefix}-aks-${region}"
 
       default_node_pool = {
         name           = "default"
         node_count     = 1
         vm_size        = "Standard_D4_v2"
-        vnet_subnet_id = azurerm_subnet.subnet["${var.prefix}-aks-snet"].id
       }
 
       identity = {

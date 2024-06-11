@@ -1,20 +1,29 @@
-resource "azurerm_network_security_rule" "network_security_rule" {
-  for_each = local.network_security_rules
-
-  resource_group_name = each.value.resource_group_name
-
-  name                        = each.value.name
-  network_security_group_name = each.value.network_security_group_name
-  priority                    = each.value.priority
-  direction                   = each.value.direction
-  access                      = each.value.access
-  protocol                    = each.value.protocol
-  source_port_range           = each.value.source_port_range
-  destination_port_ranges     = each.value.destination_port_ranges
-  source_address_prefix       = each.value.source_address_prefix
-  destination_address_prefix  = each.value.destination_address_prefix
+resource "azurerm_network_security_rule" "nsg_ingress" {
+  for_each = local.network_security_groups
+  name                        = "${each.key}-ingress"
+  resource_group_name         = each.value.resource_group_name
+  network_security_group_name = each.value.name
+  priority                    = 1000
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_ranges     = ["80", "443", "11443"]
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
 }
 
-output "network_security_rules" {
-  value = var.enable_output ? azurerm_network_security_rule.network_security_rule[*] : null
+resource "azurerm_network_security_rule" "nsg_egress" {
+  for_each = local.network_security_groups
+  name                        = "${each.key}-egress"
+  resource_group_name         = each.value.resource_group_name
+  network_security_group_name = each.value.name
+  priority                    = 1001
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_ranges     = ["80", "443"]
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
 }

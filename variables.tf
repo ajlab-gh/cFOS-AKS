@@ -15,3 +15,8 @@ variable "manifest_url" {
   type        = string
   default     = "https://raw.githubusercontent.com/AJLab-GH/microservices-demo/main/release/kubernetes-manifests.yaml"
 }
+variable "regions" {
+  description = "List of regions"
+  type        = list(string)
+  default     = ["canadacentral", "canadaeast"]
+}
