@@ -3,6 +3,7 @@ variable "prefix" {
 }
 variable "virtual_network_cidr" {
   description = "CIDR Notation for Virtual Network"
+  type        = string
   default     = "10.20.0.0/16"
 }
 variable "enable_output" {
