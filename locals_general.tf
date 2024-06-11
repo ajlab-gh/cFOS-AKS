@@ -22,9 +22,10 @@ locals {
       dns_prefix          = "${var.prefix}-aks-01"
 
       default_node_pool = {
-        name       = "default"
-        node_count = 1
-        vm_size    = "Standard_D4_v2"
+        name           = "default"
+        node_count     = 1
+        vm_size        = "Standard_D4_v2"
+        vnet_subnet_id = azurerm_subnet.subnet["${var.prefix}-aks-snet"].id
       }
 
       identity = {
