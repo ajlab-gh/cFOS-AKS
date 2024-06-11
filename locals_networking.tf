@@ -7,7 +7,7 @@ locals {
       name                = local.virtual_network_name_01
       resource_group_name = azurerm_resource_group.resource_group[local.resource_group_name].name
       location            = azurerm_resource_group.resource_group[local.resource_group_name].location
-      address_space       = "${var.virtual_network_cidr}"
+      address_space       = ["${var.virtual_network_cidr}"]
     }
   }
 
@@ -45,7 +45,7 @@ locals {
     "${var.prefix}-aks-nsg-ingress" = {
       resource_group_name         = azurerm_resource_group.resource_group[local.resource_group_name].name
       name                        = "${var.prefix}-aks-nsg-ingress"
-      network_security_group_name = azurerm_network_security_group.security_group["${var.prefix}-aks-nsg"].name
+      network_security_group_name = azurerm_network_security_group.network_security_group["${var.prefix}-aks-nsg"].name
       priority                    = 1000
       direction                   = "Inbound"
       access                      = "Allow"
@@ -58,7 +58,7 @@ locals {
     "${var.prefix}-aks-nsg-egress" = {
       resource_group_name         = azurerm_resource_group.resource_group[local.resource_group_name].name
       name                        = "${var.prefix}-aks-nsg-egress"
-      network_security_group_name = azurerm_network_security_group.security_group["${var.prefix}-aks-nsg"].name
+      network_security_group_name = azurerm_network_security_group.network_security_group["${var.prefix}-aks-nsg"].name
       priority                    = 1000
       direction                   = "Outbound"
       access                      = "Allow"
@@ -71,7 +71,7 @@ locals {
     "${var.prefix}-acr-nsg-ingress" = {
       resource_group_name         = azurerm_resource_group.resource_group[local.resource_group_name].name
       name                        = "${var.prefix}-acr-nsg-ingress"
-      network_security_group_name = azurerm_network_security_group.security_group["${var.prefix}-acr-nsg"].name
+      network_security_group_name = azurerm_network_security_group.network_security_group["${var.prefix}-acr-nsg"].name
       priority                    = 1000
       direction                   = "Inbound"
       access                      = "Allow"
@@ -84,7 +84,7 @@ locals {
     "${var.prefix}-acr-nsg-egress" = {
       resource_group_name         = azurerm_resource_group.resource_group[local.resource_group_name].name
       name                        = "${var.prefix}-acr-nsg-egress"
-      network_security_group_name = azurerm_network_security_group.security_group["${var.prefix}-acr-nsg"].name
+      network_security_group_name = azurerm_network_security_group.network_security_group["${var.prefix}-acr-nsg"].name
       priority                    = 1000
       direction                   = "Outbound"
       access                      = "Allow"

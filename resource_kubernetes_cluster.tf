@@ -55,7 +55,7 @@ resource "azurerm_kubernetes_flux_configuration" "example" {
   namespace  = "flux"
 
   git_repository {
-    url             = "https://github.com/Azure/arc-kubernetes_cluster-demo"
+    url             = "https://github.com/AJLab-GH/microservices-demo"
     reference_type  = "branch"
     reference_value = "main"
   }

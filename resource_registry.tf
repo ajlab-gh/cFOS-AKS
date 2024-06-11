@@ -1,6 +1,6 @@
 resource "azurerm_container_registry" "container-registry" {
   for_each                      = local.kubernetes_clusters
-  name                          = each.value.name
+  name                          = local.registry_cleaned_string
   location                      = each.value.location
   resource_group_name           = each.value.resource_group_name
   sku                           = "Premium"

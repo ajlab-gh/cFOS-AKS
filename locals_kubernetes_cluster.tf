@@ -1,10 +1,10 @@
 locals {
   kubernetes_clusters = {
-    "${var.prefix}-aks-01" = {
-      name                = "${var.prefix}-aks-01"
+    (local.kubernetes_cluster_name_01) = {
+      name                = local.kubernetes_cluster_name_01
       location            = azurerm_resource_group.resource_group[local.resource_group_name].location
       resource_group_name = azurerm_resource_group.resource_group[local.resource_group_name].name
-      dns_prefix          = "${var.prefix}-aks-01"
+      dns_prefix          = local.kubernetes_cluster_name_01
 
       default_node_pool = {
         name           = "default"
