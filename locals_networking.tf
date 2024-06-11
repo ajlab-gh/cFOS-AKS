@@ -57,7 +57,7 @@ locals {
     },
     "${var.prefix}-aks-nsg-egress" = {
       resource_group_name         = azurerm_resource_group.resource_group[local.resource_group_name].name
-      name                        =  "${var.prefix}-aks-nsg-egress"
+      name                        = "${var.prefix}-aks-nsg-egress"
       network_security_group_name = azurerm_network_security_group.security_group["${var.prefix}-aks-nsg"].name
       priority                    = 1000
       direction                   = "Outbound"
@@ -95,7 +95,7 @@ locals {
       destination_address_prefix  = "*"
     }
   }
-  
+
   subnet_network_security_group_associations = {
     "${var.prefix}-aks-snet-association" = {
       subnet_id                 = azurerm_subnet.subnet["${var.prefix}-aks-snet"].id

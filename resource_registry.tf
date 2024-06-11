@@ -1,8 +1,8 @@
 resource "azurerm_container_registry" "container-registry" {
-  for_each            = local.kubernetes_clusters
-  name                = each.value.name
-  location            = each.value.location
-  resource_group_name = each.value.resource_group_name
+  for_each                      = local.kubernetes_clusters
+  name                          = each.value.name
+  location                      = each.value.location
+  resource_group_name           = each.value.resource_group_name
   sku                           = "Premium"
   admin_enabled                 = true
   public_network_access_enabled = false
