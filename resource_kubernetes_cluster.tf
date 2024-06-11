@@ -5,13 +5,13 @@ data "azurerm_kubernetes_service_versions" "current" {
 }
 
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
-  for_each            = local.kubernetes_clusters
-  name                = each.value.name
-  location            = each.value.location
-  resource_group_name = each.value.resource_group_name
-  dns_prefix          = each.value.dns_prefix
-  kubernetes_version  = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
-  sku_tier            = "Standard"
+  for_each                          = local.kubernetes_clusters
+  name                              = each.value.name
+  location                          = each.value.location
+  resource_group_name               = each.value.resource_group_name
+  dns_prefix                        = each.value.dns_prefix
+  kubernetes_version                = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
+  sku_tier                          = "Standard"
   role_based_access_control_enabled = true
 
   default_node_pool {
@@ -19,6 +19,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     name                        = each.value.default_node_pool.name
     node_count                  = each.value.default_node_pool.node_count
     vm_size                     = each.value.default_node_pool.vm_size
+    vnet_subnet_id              = each.value.default_node_pool.vnet_subnet_id
   }
   network_profile {
     network_plugin    = "azure"
