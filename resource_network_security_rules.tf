@@ -1,5 +1,5 @@
 resource "azurerm_network_security_rule" "nsg_ingress" {
-  for_each = local.network_security_groups
+  for_each                    = local.network_security_groups
   name                        = "${each.key}-ingress"
   resource_group_name         = each.value.resource_group_name
   network_security_group_name = each.value.name
@@ -11,10 +11,11 @@ resource "azurerm_network_security_rule" "nsg_ingress" {
   destination_port_ranges     = ["80", "443", "11443"]
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
+  depends_on = [azurerm_network_security_group.network_security_group]
 }
 
 resource "azurerm_network_security_rule" "nsg_egress" {
-  for_each = local.network_security_groups
+  for_each                    = local.network_security_groups
   name                        = "${each.key}-egress"
   resource_group_name         = each.value.resource_group_name
   network_security_group_name = each.value.name
@@ -26,4 +27,5 @@ resource "azurerm_network_security_rule" "nsg_egress" {
   destination_port_ranges     = ["80", "443"]
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
+  depends_on = [azurerm_network_security_group.network_security_group]
 }
