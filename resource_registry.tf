@@ -1,12 +1,12 @@
-resource "azurerm_container_registry" "container-registry" {
-  for_each                      = local.kubernetes_clusters
-  name                          = local.registry_cleaned_string
+resource "azurerm_container_registry" "container_registry" {
+  for_each                      = local.container_registrys
+  name                          = each.value.name
   location                      = each.value.location
   resource_group_name           = each.value.resource_group_name
-  sku                           = "Premium"
-  admin_enabled                 = true
-  public_network_access_enabled = false
-  anonymous_pull_enabled        = false
+  sku                           = each.value.sku
+  admin_enabled                 = each.value.admin_enabled
+  public_network_access_enabled = each.value.public_network_access_enabled
+  anonymous_pull_enabled        = each.value.anonymous_pull_enabled
 }
 
 #output "registry_login_server" {
