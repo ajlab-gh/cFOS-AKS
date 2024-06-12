@@ -3,7 +3,6 @@
   "initializeCommand": "docker pull docker.io/robinmordasiewicz/devcontainer:latest",
   "name": "cfos-aks",
   "runArgs": [
-    "--name=cfos-aks",
     "--hostname=cfos-aks"
   ]
 }
