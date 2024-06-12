@@ -1,5 +1,5 @@
 variable "prefix" {
-  description = "Define the Prefix to be used in this Deployment"
+  description = "Define the Prefix to be used in this Deployment, This CANNOT include a Hyphen (-)"
 }
 variable "virtual_network_cidr" {
   description = "CIDR Notation for Virtual Network"
@@ -18,5 +18,5 @@ variable "manifest_url" {
 variable "regions" {
   description = "List of regions"
   type        = list(string)
-  default     = ["canadacentral", "canadaeast", "eastus"]
+  default     = ["canadacentral"]
 }
