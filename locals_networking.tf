@@ -22,7 +22,7 @@ locals {
 
   aks_subnet_ids = {
     for region in var.regions :
-     "${var.prefix}-${region}-aks-subnet" => azurerm_subnet.aks_subnet["${var.prefix}-${region}-aks-subnet"].id
+    "${var.prefix}-${region}-aks-subnet" => azurerm_subnet.aks_subnet["${var.prefix}-${region}-aks-subnet"].id
   }
 
   acr_subnets = {

@@ -19,7 +19,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     name                        = each.value.default_node_pool.name
     node_count                  = each.value.default_node_pool.node_count
     vm_size                     = each.value.default_node_pool.vm_size
-    vnet_subnet_id              = azurerm_subnet.aks_subnet["${var.prefix}-${split("-", each.key)[2]}-aks-subnet"].id
+    vnet_subnet_id              = each.value.default_node_pool.vnet_subnet_id
   }
   network_profile {
     network_plugin    = "azure"
