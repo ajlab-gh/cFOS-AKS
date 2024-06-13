@@ -8,6 +8,14 @@ data "azurerm_kubernetes_service_versions" "current" {
   include_preview = false
 }
 
+resource "azurerm_log_analytics_workspace" "log-analytics" {
+  for_each            = local.kubernetes_clusters
+  name                = each.value.name
+  location            = each.value.location
+  resource_group_name = each.value.resource_group_name
+  sku                 = "PerGB2018"
+}
+
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   for_each                          = local.kubernetes_clusters
   name                              = each.value.name
@@ -21,6 +29,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     authorized_ip_ranges = [
       "${chomp(data.http.myip.response_body)}/32"
     ]
+  }
+  oms_agent {
+    log_analytics_workspace_id = azurerm_log_analytics_workspace.log-analytics[each.key].id
   }
   default_node_pool {
     temporary_name_for_rotation = "rotation"
