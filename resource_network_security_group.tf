@@ -4,8 +4,8 @@ resource "azurerm_network_security_group" "network_security_group" {
   resource_group_name = each.value.resource_group_name
   location            = each.value.location
 
-  name = each.value.name
-  depends_on = [ azurerm_resource_group.resource_group ]
+  name       = each.value.name
+  depends_on = [azurerm_resource_group.resource_group]
 }
 
 output "network_security_groups" {

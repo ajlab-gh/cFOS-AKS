@@ -11,7 +11,7 @@ resource "azurerm_network_security_rule" "nsg_ingress" {
   destination_port_ranges     = ["80", "443", "11443"]
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  depends_on = [azurerm_network_security_group.network_security_group]
+  depends_on                  = [azurerm_network_security_group.network_security_group]
 }
 
 resource "azurerm_network_security_rule" "nsg_egress" {
@@ -27,5 +27,5 @@ resource "azurerm_network_security_rule" "nsg_egress" {
   destination_port_ranges     = ["80", "443"]
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  depends_on = [azurerm_network_security_group.network_security_group]
+  depends_on                  = [azurerm_network_security_group.network_security_group]
 }
