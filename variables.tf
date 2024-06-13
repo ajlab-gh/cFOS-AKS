@@ -18,5 +18,5 @@ variable "manifest_url" {
 variable "regions" {
   description = "List of regions"
   type        = list(string)
-  default     = ["canadacentral"]
+  default     = ["canadacentral", "canadaeast"]
 }

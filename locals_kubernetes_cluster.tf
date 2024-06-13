@@ -8,10 +8,10 @@ locals {
       dns_prefix          = "${var.prefix}-aks-${region}"
 
       default_node_pool = {
-        name       = "default"
-        node_count = 1
-        vm_size    = "Standard_D4_v2"
-        //vnet_subnet_id = each.value.local.selected_aks_subnets[region].id
+        name           = "default"
+        node_count     = 1
+        vm_size        = "Standard_D4_v2"
+        vnet_subnet_id = azurerm_subnet.aks_subnet["${var.prefix}-${region}-aks-subnet"].id
       }
 
       identity = {
