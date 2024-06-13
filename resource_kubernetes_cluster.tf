@@ -1,3 +1,7 @@
+data "http" "myip" {
+  url = "https://ipv4.icanhazip.com"
+}
+
 data "azurerm_kubernetes_service_versions" "current" {
   for_each        = local.kubernetes_clusters
   location        = each.value.location
@@ -13,7 +17,11 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   kubernetes_version                = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
   sku_tier                          = "Standard"
   role_based_access_control_enabled = true
-
+  api_server_access_profile {
+    authorized_ip_ranges = [
+      "${chomp(data.http.myip.response_body)}/32"
+    ]
+  }
   default_node_pool {
     temporary_name_for_rotation = "rotation"
     name                        = each.value.default_node_pool.name
