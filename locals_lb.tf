@@ -58,3 +58,65 @@ locals {
     }
   }
 }
+
+
+resource "null_resource" "fetch_nic_ids_and_attach_lb" {
+  for_each = toset(var.regions)
+
+  provisioner "local-exec" {
+    interpreter = ["/opt/microsoft/powershell/7/pwsh", "-Command"]
+    command = <<EOT
+
+# Define your variables
+$resourceGroupName = "${var.prefix}-${each.key}-aks-rg"
+$vmssResourceGroupName = "MC_${var.prefix}-${each.key}-aks-rg_${var.prefix}-aks-${each.key}_${each.key}"
+$loadBalancerName = "${var.prefix}-${each.key}-elb"
+$backendPoolName = "${var.prefix}-${each.key}-bep"
+
+Write-Host "Fetching VMSS names in resource group: $vmssResourceGroupName"
+$vmssNames = (Get-AzVmss -ResourceGroupName $vmssResourceGroupName).Name
+
+foreach ($vmssName in $vmssNames) {
+    Write-Host "Processing VMSS: $vmssName"
+
+    # Get the Load Balancer
+    $lb = Get-AzLoadBalancer -ResourceGroupName $resourceGroupName -Name $loadBalancerName
+    Write-Host "Fetched Load Balancer: $loadBalancerName"
+
+    # Get the Backend Pool
+    $backendPool = $lb.BackendAddressPools | Where-Object { $_.Name -eq $backendPoolName }
+    Write-Host "Fetched Backend Pool: $backendPoolName"
+
+    # Get the VMSS configuration
+    $vmss = Get-AzVmss -ResourceGroupName $vmssResourceGroupName -VMScaleSetName $vmssName
+    Write-Host "Fetched VMSS configuration for: $vmssName"
+
+    # Create a new SubResource object for the backend pool
+    $backendPoolSubResource = [Microsoft.Azure.Management.Compute.Models.SubResource]::new()
+    $backendPoolSubResource.Id = $backendPool.Id
+
+    # Ensure LoadBalancerBackendAddressPools is initialized and add the backend pool to each IP configuration
+    foreach ($nicConfig in $vmss.VirtualMachineProfile.NetworkProfile.NetworkInterfaceConfigurations) {
+        foreach ($ipConfig in $nicConfig.IpConfigurations) {
+            if (-not $ipConfig.LoadBalancerBackendAddressPools) {
+                $ipConfig.LoadBalancerBackendAddressPools = [System.Collections.Generic.List[Microsoft.Azure.Management.Compute.Models.SubResource]]::new()
+            }
+            $ipConfig.LoadBalancerBackendAddressPools.Add($backendPoolSubResource)
+        }
+    }
+    Write-Host "Updated IP configurations for VMSS: $vmssName"
+
+    # Update the VMSS
+    Update-AzVmss -ResourceGroupName $vmssResourceGroupName -Name $vmssName -VirtualMachineScaleSet $vmss
+    Write-Host "Updated VMSS: $vmssName"
+
+    # Ensure VMSS Instances are Updated
+    $instanceIds = (Get-AzVmssVM -ResourceGroupName $vmssResourceGroupName -VMScaleSetName $vmssName).InstanceId
+    Update-AzVmssInstance -ResourceGroupName $vmssResourceGroupName -VMScaleSetName $vmssName -InstanceId $instanceIds
+    Write-Host "Updated instances for VMSS: $vmssName"
+}
+Write-Host "Completed processing for region: ${each.key}"
+EOT
+  }
+  depends_on = [ azurerm_kubernetes_cluster.kubernetes_cluster, azurerm_lb_backend_address_pool.lb_backend_address_pool ]
+}
