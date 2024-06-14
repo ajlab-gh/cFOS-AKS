@@ -59,8 +59,13 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 
 #output "kube_config" {
 #  value     = azurerm_kubernetes_cluster.kubernetes_cluster[*].kube_config_raw
-#  sensitive = true
 #}
+
+output "kube_config" {
+  description = "Virtual Network Name"
+  value = [ for cluster in azurerm_kubernetes_cluster.kubernetes_cluster: cluster.kube_config_raw]
+  sensitive = true
+}
 
 resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   for_each       = local.kubernetes_clusters
@@ -69,22 +74,19 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   extension_type = "microsoft.flux"
 }
 
-resource "azurerm_kubernetes_flux_configuration" "example" {
+resource "azurerm_kubernetes_flux_configuration" "aks-store-demo-manifests" {
+  name       = "aks-store-demo-manifests"
   for_each   = local.kubernetes_clusters
-  name       = "example-fc"
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace  = "flux"
-
+  namespace  = "flux-system"
   git_repository {
-    url             = "https://github.com/AJLab-GH/microservices-demo"
+    url             = "https://github.com/robinmordasiewicz/aks-store-demo-manifests"
     reference_type  = "branch"
     reference_value = "main"
   }
-
   kustomizations {
-    name = "kustomization-1"
+    name = "dev"
   }
-
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
