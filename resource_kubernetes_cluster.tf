@@ -57,10 +57,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 #  value = var.enable_output ? azurerm_kubernetes_cluster.kubernetes_cluster[*] : null
 #}
 
-#output "kube_config" {
-#  value     = azurerm_kubernetes_cluster.kubernetes_cluster[*].kube_config_raw
-#}
-
 output "kube_config" {
   description = "Virtual Network Name"
   value = [ for cluster in azurerm_kubernetes_cluster.kubernetes_cluster: cluster.kube_config_raw]
@@ -78,7 +74,7 @@ resource "azurerm_kubernetes_flux_configuration" "aks-store-demo-manifests" {
   name       = "aks-store-demo-manifests"
   for_each   = local.kubernetes_clusters
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace  = "flux-system"
+  namespace  = "flux"
   git_repository {
     url             = "https://github.com/robinmordasiewicz/aks-store-demo-manifests"
     reference_type  = "branch"
