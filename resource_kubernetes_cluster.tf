@@ -54,11 +54,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   depends_on = [azurerm_subnet.aks_subnet]
 }
 
-
-#output "kubernetes_clusters" {
-#  value = var.enable_output ? azurerm_kubernetes_cluster.kubernetes_cluster[*] : null
-#}
-
 output "kube_config" {
   description = "Virtual Network Name"
   value       = [for cluster in azurerm_kubernetes_cluster.kubernetes_cluster : cluster.kube_config_raw]
