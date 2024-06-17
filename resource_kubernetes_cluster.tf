@@ -25,6 +25,8 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   kubernetes_version                = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
   sku_tier                          = "Standard"
   role_based_access_control_enabled = true
+  oidc_issuer_enabled               = true
+  workload_identity_enabled         = true
   api_server_access_profile {
     authorized_ip_ranges = [
       "${chomp(data.http.myip.response_body)}/32"
@@ -59,8 +61,8 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 
 output "kube_config" {
   description = "Virtual Network Name"
-  value = [ for cluster in azurerm_kubernetes_cluster.kubernetes_cluster: cluster.kube_config_raw]
-  sensitive = true
+  value       = [for cluster in azurerm_kubernetes_cluster.kubernetes_cluster : cluster.kube_config_raw]
+  sensitive   = true
 }
 
 resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
@@ -70,18 +72,22 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   extension_type = "microsoft.flux"
 }
 
-resource "azurerm_kubernetes_flux_configuration" "aks-store-demo-manifests" {
-  name       = "aks-store-demo-manifests"
+resource "azurerm_kubernetes_flux_configuration" "store" {
   for_each   = local.kubernetes_clusters
+  name       = "store"
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace  = "flux"
+  namespace  = "flux-system"
+  scope      = "cluster"
   git_repository {
     url             = "https://github.com/robinmordasiewicz/aks-store-demo-manifests"
     reference_type  = "branch"
     reference_value = "main"
   }
   kustomizations {
-    name = "dev"
+    name                       = "dev"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+    path                       = "./overlays/dev"
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
