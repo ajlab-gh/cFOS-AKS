@@ -65,7 +65,7 @@ resource "null_resource" "fetch_nic_ids_and_attach_lb" {
 
   provisioner "local-exec" {
     interpreter = ["/opt/microsoft/powershell/7/pwsh", "-Command"]
-    command = <<EOT
+    command     = <<EOT
 
 # Define your variables
 $resourceGroupName = "${var.prefix}-${each.key}-aks-rg"
@@ -118,5 +118,5 @@ foreach ($vmssName in $vmssNames) {
 Write-Host "Completed processing for region: ${each.key}"
 EOT
   }
-  depends_on = [ azurerm_kubernetes_cluster.kubernetes_cluster, azurerm_lb_backend_address_pool.lb_backend_address_pool ]
+  depends_on = [azurerm_kubernetes_cluster.kubernetes_cluster, azurerm_lb_backend_address_pool.lb_backend_address_pool]
 }
