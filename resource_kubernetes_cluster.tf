@@ -88,3 +88,11 @@ resource "azurerm_kubernetes_flux_configuration" "store" {
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
 }
+
+#resource "azurerm_role_assignment" "acrpull-role" {
+#  for_each       = local.kubernetes_clusters
+#  principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].kubelet_identity[0].object_id
+#  role_definition_name             = "AcrPull"
+#  scope                            = azurerm_container_registry.container_registry[each.key].id
+#  skip_service_principal_aad_check = true
+#}

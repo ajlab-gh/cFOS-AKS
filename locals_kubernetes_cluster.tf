@@ -28,7 +28,7 @@ locals {
       resource_group_name           = local.resource_groups["${var.prefix}-${region}-aks-rg"].name
       sku                           = "Premium"
       admin_enabled                 = true
-      public_network_access_enabled = false
+      public_network_access_enabled = true
       anonymous_pull_enabled        = false
     }
   }
