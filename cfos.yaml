@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cfos-deployment
+  labels:
+    app: cfos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cfos
+  template:
+    metadata:
+      labels:
+        app: cfos
+    spec:
+      containers:
+      - name: cfos
+        image: frobozzcanadacentralacr.azurecr.io/cfos:latest
+        env:
+        - name: cfos-license
+          valueFrom:
+            configMapKeyRef:
+              name: cfos-license
+              key: license
+        securityContext:
+          capabilities:
+              add: ["NET_ADMIN","SYS_ADMIN","NET_RAW"]
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /data
+          name: data-volume
+      imagePullSecrets:
+      - name: dockerinterbeing
+      volumes:
+      - name: data-volume
+        hostPath:
+          path: /cfosdata
+          type: DirectoryOrCreate
