@@ -8,10 +8,9 @@ locals {
       dns_prefix          = "${var.prefix}-aks-${region}"
 
       default_node_pool = {
-        name           = "default"
-        node_count     = 1
-        vm_size        = "Standard_F16s_v2"
-        vnet_subnet_id = azurerm_subnet.aks_subnet["${var.prefix}-${region}-aks-subnet"].id
+        name       = "default"
+        node_count = 1
+        vm_size    = "Standard_F16s_v2"
       }
 
       identity = {
@@ -30,6 +29,16 @@ locals {
       admin_enabled                 = true
       public_network_access_enabled = true
       anonymous_pull_enabled        = false
+    }
+  }
+
+  role_assignments = {
+    for region in var.regions :
+    "${var.prefix}-${region}-ra" => {
+      principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster["${var.prefix}-aks-${region}"].kubelet_identity[0].object_id
+      role_definition_name             = "AcrPull"
+      scope                            = azurerm_container_registry.container_registry["${var.prefix}-${region}-acr"].id
+      skip_service_principal_aad_check = true
     }
   }
 }
