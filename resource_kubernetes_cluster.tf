@@ -40,7 +40,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     name                        = each.value.default_node_pool.name
     node_count                  = each.value.default_node_pool.node_count
     vm_size                     = each.value.default_node_pool.vm_size
-    vnet_subnet_id              = each.value.default_node_pool.vnet_subnet_id
   }
   network_profile {
     network_plugin    = "azure"
@@ -51,7 +50,14 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   identity {
     type = each.value.identity.type
   }
-  depends_on = [azurerm_subnet.aks_subnet]
+}
+
+resource "azurerm_role_assignment" "role_assignment" {
+  for_each                         = local.role_assignments
+  principal_id                     = each.value.principal_id
+  role_definition_name             = each.value.role_definition_name
+  scope                            = each.value.scope
+  skip_service_principal_aad_check = each.value.skip_service_principal_aad_check
 }
 
 output "kube_config" {
