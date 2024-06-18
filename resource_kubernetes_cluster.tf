@@ -85,10 +85,10 @@ resource "azurerm_kubernetes_flux_configuration" "store" {
     reference_value = "version-1.1"
   }
   kustomizations {
-    name                       = "version-1.1"
+    name                       = "dev"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/overlays/version-1.1"
+    path                       = "./manifests/overlays/dev"
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
