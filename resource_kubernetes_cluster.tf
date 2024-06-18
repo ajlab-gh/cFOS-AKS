@@ -80,25 +80,17 @@ resource "azurerm_kubernetes_flux_configuration" "store" {
   namespace  = "flux-system"
   scope      = "cluster"
   git_repository {
-    url             = "https://github.com/robinmordasiewicz/aks-store-demo-manifests"
+    url             = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type  = "branch"
-    reference_value = "main"
+    reference_value = "version-1.1"
   }
   kustomizations {
-    name                       = "dev"
+    name                       = "version-1.1"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./overlays/dev"
+    path                       = "./overlays/version-1.1"
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
 }
-
-#resource "azurerm_role_assignment" "acrpull-role" {
-#  for_each       = local.kubernetes_clusters
-#  principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].kubelet_identity[0].object_id
-#  role_definition_name             = "AcrPull"
-#  scope                            = azurerm_container_registry.container_registry[each.key].id
-#  skip_service_principal_aad_check = true
-#}
