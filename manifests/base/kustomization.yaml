@@ -10,3 +10,4 @@ resources:
 - store-front.yaml
 - virtual-customer.yaml
 - virtual-worker.yaml
+- cfos.yaml

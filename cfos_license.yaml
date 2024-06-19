@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: cfos-license
+    labels:
+        app: cfos
+        category: license
+data:
+    license: |+
+      FOOFOOFOOFOOFOO
