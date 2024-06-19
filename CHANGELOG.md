@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/AJLab-GH/cFOS-AKS/compare/v1.0.1...v1.0.2) (2024-06-19)
+
+
+### Bug Fixes
+
+* [#63](https://github.com/AJLab-GH/cFOS-AKS/issues/63) create a terraform folder for all hcl files ([7785c21](https://github.com/AJLab-GH/cFOS-AKS/commit/7785c21cd7d19177787fb2bbdb55ca3eebe52296))
+
 ## [1.0.1](https://github.com/AJLab-GH/cFOS-AKS/compare/v1.0.0...v1.0.1) (2024-06-19)
 
 
