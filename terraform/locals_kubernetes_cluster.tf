@@ -19,26 +19,26 @@ locals {
     }
   }
 
-  container_registrys = {
-    for region in var.regions :
-    "${var.prefix}-${region}-acr" => {
-      name                          = replace("${var.prefix}${region}acr", "-", "")
-      location                      = local.resource_groups["${var.prefix}-${region}-aks-rg"].location
-      resource_group_name           = local.resource_groups["${var.prefix}-${region}-aks-rg"].name
-      sku                           = "Premium"
-      admin_enabled                 = true
-      public_network_access_enabled = true
-      anonymous_pull_enabled        = false
-    }
-  }
+  #container_registrys = {
+  #  for region in var.regions :
+  #  "${var.prefix}-${region}-acr" => {
+  #    name                          = replace("${var.prefix}${region}acr", "-", "")
+  #    location                      = local.resource_groups["${var.prefix}-${region}-aks-rg"].location
+  #    resource_group_name           = local.resource_groups["${var.prefix}-${region}-aks-rg"].name
+  #    sku                           = "Premium"
+  #    admin_enabled                 = true
+  #    public_network_access_enabled = true
+  #    anonymous_pull_enabled        = false
+  #  }
+  #}
 
-  role_assignments = {
-    for region in var.regions :
-    "${var.prefix}-${region}-ra" => {
-      principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster["${var.prefix}-aks-${region}"].kubelet_identity[0].object_id
-      role_definition_name             = "AcrPull"
-      scope                            = azurerm_container_registry.container_registry["${var.prefix}-${region}-acr"].id
-      skip_service_principal_aad_check = true
-    }
-  }
+  #role_assignments = {
+  #  for region in var.regions :
+  #  "${var.prefix}-${region}-ra" => {
+  #    principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster["${var.prefix}-aks-${region}"].kubelet_identity[0].object_id
+  #    role_definition_name             = "AcrPull"
+  #    scope                            = azurerm_container_registry.container_registry["${var.prefix}-${region}-acr"].id
+  #    skip_service_principal_aad_check = true
+  #  }
+  #}
 }
