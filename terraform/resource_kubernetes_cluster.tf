@@ -52,13 +52,13 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 }
 
-resource "azurerm_role_assignment" "role_assignment" {
-  for_each                         = local.role_assignments
-  principal_id                     = each.value.principal_id
-  role_definition_name             = each.value.role_definition_name
-  scope                            = each.value.scope
-  skip_service_principal_aad_check = each.value.skip_service_principal_aad_check
-}
+#resource "azurerm_role_assignment" "role_assignment" {
+#  for_each                         = local.role_assignments
+#  principal_id                     = each.value.principal_id
+#  role_definition_name             = each.value.role_definition_name
+#  scope                            = each.value.scope
+#  skip_service_principal_aad_check = each.value.skip_service_principal_aad_check
+#}
 
 output "kube_config" {
   description = "Virtual Network Name"
