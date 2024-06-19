@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cfos-deployment
-  labels:
-    app: cfos
 spec:
   replicas: 1
   selector:
@@ -14,9 +12,17 @@ spec:
       labels:
         app: cfos
     spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
       containers:
       - name: cfos
         image: frobozzcanadacentralacr.azurecr.io/cfos:latest
+        ports:
+        - containerPort: 80
+          name: cfos
+        volumeMounts:
+        - mountPath: /data
+          name: data-volume
         env:
         - name: cfos-license
           valueFrom:
@@ -26,13 +32,13 @@ spec:
         securityContext:
           capabilities:
               add: ["NET_ADMIN","SYS_ADMIN","NET_RAW"]
-        ports:
-        - containerPort: 80
-        volumeMounts:
-        - mountPath: /data
-          name: data-volume
-      imagePullSecrets:
-      - name: dockerinterbeing
+        resources:
+          requests:
+            cpu: 1m
+            memory: 200Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
       volumes:
       - name: data-volume
         hostPath:

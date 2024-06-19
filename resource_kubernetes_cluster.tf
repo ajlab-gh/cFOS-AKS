@@ -82,7 +82,7 @@ resource "azurerm_kubernetes_flux_configuration" "store" {
   git_repository {
     url             = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type  = "branch"
-    reference_value = "version-1.1"
+    reference_value = "main"
   }
   kustomizations {
     name                       = "dev"
