@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - ./../../base
-namespace: store-dev
+namespace: store-main
