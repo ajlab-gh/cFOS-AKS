@@ -34,11 +34,11 @@ spec:
               add: ["NET_ADMIN","SYS_ADMIN","NET_RAW"]
         resources:
           requests:
-            cpu: 1m
-            memory: 200Mi
+            cpu: 4m
+            memory: 16000Mi
           limits:
-            cpu: 1000m
-            memory: 512Mi
+            cpu: 8000m
+            memory: 4096Mi
       volumes:
       - name: data-volume
         hostPath:
