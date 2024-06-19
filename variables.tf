@@ -1,5 +1,5 @@
 variable "prefix" {
-  description = "Define the Prefix to be used in this Deployment"
+  description = "Define the Prefix to be used in this Deployment, This CANNOT include a Hyphen (-)"
 }
 variable "virtual_network_cidr" {
   description = "CIDR Notation for Virtual Network"
@@ -14,4 +14,9 @@ variable "manifest_url" {
   description = "URL to the Kubernetes manifest file"
   type        = string
   default     = "https://raw.githubusercontent.com/AJLab-GH/microservices-demo/main/release/kubernetes-manifests.yaml"
+}
+variable "regions" {
+  description = "List of regions"
+  type        = list(string)
+  default     = ["canadacentral"]
 }

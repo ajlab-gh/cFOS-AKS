@@ -1,7 +1,19 @@
+data "http" "myip" {
+  url = "https://ipv4.icanhazip.com"
+}
+
 data "azurerm_kubernetes_service_versions" "current" {
   for_each        = local.kubernetes_clusters
   location        = each.value.location
   include_preview = false
+}
+
+resource "azurerm_log_analytics_workspace" "log-analytics" {
+  for_each            = local.kubernetes_clusters
+  name                = each.value.name
+  location            = each.value.location
+  resource_group_name = each.value.resource_group_name
+  sku                 = "PerGB2018"
 }
 
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
@@ -9,17 +21,25 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                              = each.value.name
   location                          = each.value.location
   resource_group_name               = each.value.resource_group_name
-  dns_prefix                        = each.value.dns_prefix
+  dns_prefix                        = "${var.prefix}-aks-${each.key}"
   kubernetes_version                = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
   sku_tier                          = "Standard"
   role_based_access_control_enabled = true
-
+  oidc_issuer_enabled               = true
+  workload_identity_enabled         = true
+  api_server_access_profile {
+    authorized_ip_ranges = [
+      "${chomp(data.http.myip.response_body)}/32"
+    ]
+  }
+  oms_agent {
+    log_analytics_workspace_id = azurerm_log_analytics_workspace.log-analytics[each.key].id
+  }
   default_node_pool {
     temporary_name_for_rotation = "rotation"
     name                        = each.value.default_node_pool.name
     node_count                  = each.value.default_node_pool.node_count
     vm_size                     = each.value.default_node_pool.vm_size
-    vnet_subnet_id              = each.value.default_node_pool.vnet_subnet_id
   }
   network_profile {
     network_plugin    = "azure"
@@ -32,14 +52,19 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 }
 
-#output "kubernetes_clusters" {
-#  value = var.enable_output ? azurerm_kubernetes_cluster.kubernetes_cluster[*] : null
-#}
+resource "azurerm_role_assignment" "role_assignment" {
+  for_each                         = local.role_assignments
+  principal_id                     = each.value.principal_id
+  role_definition_name             = each.value.role_definition_name
+  scope                            = each.value.scope
+  skip_service_principal_aad_check = each.value.skip_service_principal_aad_check
+}
 
-#output "kube_config" {
-#  value     = azurerm_kubernetes_cluster.kubernetes_cluster[*].kube_config_raw
-#  sensitive = true
-#}
+output "kube_config" {
+  description = "Virtual Network Name"
+  value       = [for cluster in azurerm_kubernetes_cluster.kubernetes_cluster : cluster.kube_config_raw]
+  sensitive   = true
+}
 
 resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   for_each       = local.kubernetes_clusters
@@ -48,22 +73,44 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   extension_type = "microsoft.flux"
 }
 
-resource "azurerm_kubernetes_flux_configuration" "example" {
+resource "azurerm_kubernetes_flux_configuration" "store-main" {
   for_each   = local.kubernetes_clusters
-  name       = "example-fc"
+  name       = "store-main"
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace  = "flux"
-
+  namespace  = "flux-system"
+  scope      = "cluster"
   git_repository {
-    url             = "https://github.com/Azure/arc-kubernetes_cluster-demo"
+    url             = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type  = "branch"
     reference_value = "main"
   }
-
   kustomizations {
-    name = "kustomization-1"
+    name                       = "main"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+    path                       = "./manifests/overlays/main"
   }
-
+  depends_on = [
+    azurerm_kubernetes_cluster_extension.flux-extension
+  ]
+}
+resource "azurerm_kubernetes_flux_configuration" "store-dev" {
+  for_each   = local.kubernetes_clusters
+  name       = "store-dev"
+  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace  = "flux-system"
+  scope      = "cluster"
+  git_repository {
+    url             = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type  = "branch"
+    reference_value = "dev"
+  }
+  kustomizations {
+    name                       = "dev"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+    path                       = "./manifests/overlays/dev"
+  }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
