@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: cfos
-        image: frobozzcanadacentralacr.azurecr.io/cfos:latest
+        image: ghcr.io/robinmordasiewicz/cfos:latest
         ports:
         - containerPort: 80
           name: cfos
