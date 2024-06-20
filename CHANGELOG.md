@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/AJLab-GH/cFOS-AKS/compare/v1.0.3...v1.0.4) (2024-06-20)
+
+
+### Bug Fixes
+
+* add configmap ([d4463e2](https://github.com/AJLab-GH/cFOS-AKS/commit/d4463e2928a030c8618ac2ef12976bf4648464ae))
+
 ## [1.0.3](https://github.com/AJLab-GH/cFOS-AKS/compare/v1.0.2...v1.0.3) (2024-06-20)
 
 
