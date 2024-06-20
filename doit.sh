@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-cfos_license_input_file="CFOSVLTM24000026.lic"
+cfos_license_input_file="FGVM08TM23005000.lic"
 [[ -f $cfos_license_input_file ]] || echo $cfos_license_input_file does not exist
 file="manifests/base/license.yaml"
 licensestring=$(sed '1d;$d' $cfos_license_input_file | tr -d '\n')
@@ -15,7 +15,7 @@ metadata:
         category: license
 data:
     license: |
-        -----BEGIN CFOS LICENSE-----
+        -----BEGIN FGT VM LICENSE-----
         $licensestring
-        -----END CFOS LICENSE-----
+        -----END FGT VM LICENSE-----
 EOF
