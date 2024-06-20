@@ -17,5 +17,5 @@ data:
     license: |
         -----BEGIN CFOS LICENSE-----
         $licensestring
-        -----END FGT VM LICENSE-----
+        -----END CMS-----
 EOF
