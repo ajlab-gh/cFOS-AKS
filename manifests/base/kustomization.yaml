@@ -11,3 +11,5 @@ resources:
 - virtual-customer.yaml
 - virtual-worker.yaml
 - cfos.yaml
+- configmap.yaml
+- license.yaml
