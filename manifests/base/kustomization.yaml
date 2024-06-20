@@ -12,3 +12,4 @@ resources:
 - virtual-worker.yaml
 - cfos.yaml
 - configmap.yaml
+- license.yaml
