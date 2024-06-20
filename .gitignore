@@ -38,3 +38,7 @@ terraform.rc
 # Kubernetes Manifest File
 microservices-demo.yaml
 frontend_ip.txt
+
+# Ignore cFOS License files
+CFOSVLTM24000026.lic
+CFOSVLTM24000026.lic.bak
