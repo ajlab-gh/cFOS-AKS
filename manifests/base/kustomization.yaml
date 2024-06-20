@@ -10,6 +10,6 @@ resources:
 - store-front.yaml
 - virtual-customer.yaml
 - virtual-worker.yaml
-- cfos.yaml
-- configmap.yaml
-- license.yaml
+- store-firewall.yaml
+- store-firewall-configmap.yaml
+- store-firewall-license.yaml
