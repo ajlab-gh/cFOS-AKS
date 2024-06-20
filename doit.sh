@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-[[ -z $cfos_license_input_file ]] && cfos_license_input_file="CFOSVLTM24000026.lic"
-[[ -f $cfos_license_input_file ]] ||  echo $cfos_license_input_file does not exist
+cfos_license_input_file="CFOSVLTM24000026.lic"
+[[ -f $cfos_license_input_file ]] || echo $cfos_license_input_file does not exist
 file="manifests/base/license.yaml"
 licensestring=$(sed '1d;$d' $cfos_license_input_file | tr -d '\n')
 cat <<EOF >$file
@@ -18,5 +18,4 @@ data:
         -----BEGIN CFOS LICENSE-----
         $licensestring
         -----END CFOS LICENSE-----
-
 EOF
