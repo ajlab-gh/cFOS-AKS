@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.0.3](https://github.com/AJLab-GH/cFOS-AKS/compare/v1.0.2...v1.0.3) (2024-06-20)
+
+
+### Bug Fixes
+
+* add configmap ([c0e5f0e](https://github.com/AJLab-GH/cFOS-AKS/commit/c0e5f0eb1b3299a0d8b75cb19cdafc817d4bd4fe))
+* add configmap ([acea56c](https://github.com/AJLab-GH/cFOS-AKS/commit/acea56c1a31e75f20d09fca7c21985427a593694))
+* add configmap ([e3e8992](https://github.com/AJLab-GH/cFOS-AKS/commit/e3e899240e087e2890dc11dd4e6559aaeba16f2a))
+* add configmap ([3d6dac3](https://github.com/AJLab-GH/cFOS-AKS/commit/3d6dac39fc9dc0ab2b3747a9e204e95403bdca6c))
+* add configmap ([48b5471](https://github.com/AJLab-GH/cFOS-AKS/commit/48b5471364b8b2900e8c17ff85e088fa5e149d32))
+* add configmap ([b40e8cf](https://github.com/AJLab-GH/cFOS-AKS/commit/b40e8cf12f69e369f32c90810af0f054bbc251d7))
+* add configmap ([752792b](https://github.com/AJLab-GH/cFOS-AKS/commit/752792bf9ec36bfad9ae6a93237bfb9a597434e7))
+* add configmap ([ef56374](https://github.com/AJLab-GH/cFOS-AKS/commit/ef56374c47617283266584ed7d3e4dc66e265aea))
+* add configmap ([430e5fe](https://github.com/AJLab-GH/cFOS-AKS/commit/430e5fe008293971b31cbe6e5f3cacd6de45e8e2))
+* add configmap ([e2d6e92](https://github.com/AJLab-GH/cFOS-AKS/commit/e2d6e92b22de3e3e549d417511507d90dc425457))
+* add configmap ([41e0453](https://github.com/AJLab-GH/cFOS-AKS/commit/41e0453d69522d77f5ad62bf73856c43e8d0dbcf))
+* add configmap ([5f99529](https://github.com/AJLab-GH/cFOS-AKS/commit/5f99529e1301b06ad23ae4e19c500209b3668b73))
+* name the fortigate deployment ([cc1f5ff](https://github.com/AJLab-GH/cFOS-AKS/commit/cc1f5ff41b729d8edc97c1b80d2ecf764ccf67d7))
+
+## [1.0.2](https://github.com/AJLab-GH/cFOS-AKS/compare/v1.0.1...v1.0.2) (2024-06-19)
+
+
+### Bug Fixes
+
+* [#63](https://github.com/AJLab-GH/cFOS-AKS/issues/63) create a terraform folder for all hcl files ([7785c21](https://github.com/AJLab-GH/cFOS-AKS/commit/7785c21cd7d19177787fb2bbdb55ca3eebe52296))
+
 ## [1.0.1](https://github.com/AJLab-GH/cFOS-AKS/compare/v1.0.0...v1.0.1) (2024-06-19)
 
 
