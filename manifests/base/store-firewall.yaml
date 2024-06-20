@@ -45,3 +45,15 @@ spec:
           hostPath:
             path: /cfosdata
             type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: store-firewall
+spec:
+  ports:
+  - port: 80
+    targetPort: 8081
+  selector:
+    app: store-firewall
+  type: LoadBalancer
