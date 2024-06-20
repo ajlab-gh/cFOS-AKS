@@ -17,6 +17,7 @@ spec:
       containers:
       - name: cfos
         image: ghcr.io/robinmordasiewicz/cfos:latest
+        command: ["/bin/cli"]
         ports:
         - containerPort: 80
           name: cfos
