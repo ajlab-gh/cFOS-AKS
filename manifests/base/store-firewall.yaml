@@ -27,12 +27,12 @@ spec:
           env:
             - name: cfos-license
               valueFrom:
-              configMapKeyRef:
-                name: cfos-license
-                key: license
+                configMapKeyRef:
+                  name: cfos-license
+                  key: license
           securityContext:
-          capabilities:
-            add: ["NET_ADMIN", "SYS_ADMIN", "NET_RAW"]
+            capabilities:
+                add: ["NET_ADMIN", "SYS_ADMIN", "NET_RAW"]
           resources:
             requests:
               cpu: 4m
