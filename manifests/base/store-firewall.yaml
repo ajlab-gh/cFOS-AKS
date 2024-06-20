@@ -31,6 +31,7 @@ spec:
                   name: cfos-license
                   key: license
           securityContext:
+            allowPrivilegeEscalation: true
             capabilities:
                 add: ["NET_ADMIN", "SYS_ADMIN", "NET_RAW"]
           resources:
