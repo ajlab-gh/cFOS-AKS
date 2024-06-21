@@ -4,3 +4,4 @@ resources:
 - fos.yaml
 - fos-configmap.yaml
 - fos-license.yaml
+- dvwa.yaml
