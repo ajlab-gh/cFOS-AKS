@@ -18,6 +18,9 @@ spec:
       containers:
         - name: dvwa
           image: ghcr.io/digininja/dvwa:latest
+          env:
+            - name: DB_SERVER
+              value: db
           resources:
             requests:
               cpu: 1m
