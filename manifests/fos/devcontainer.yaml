@@ -24,6 +24,8 @@ spec:
           command:
             - "sleep"
             - "604800"
+          stdin: true
+          tty: true
           image: ghcr.io/robinmordasiewicz/devcontainer:latest
           workingDir: /home/vscode
           resources:
