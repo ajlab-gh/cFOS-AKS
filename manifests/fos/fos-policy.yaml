@@ -1,58 +1,20 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: foscfgfirewallpolicy
+  name: cfosconfigpolicy
   labels:
       app: fos
       category: config
 data:
   type: partial
   config: |-
-    config firewall ldb-monitor
-        edit "dvwa-check"
-            set type http
-            set http-get "/login.php"
-            set http-match "200 OK"
-        next
-        edit "http-check"
-            set type http
-            set http-get "/"
-            set http-match "200 OK"
-        next
-    end
-    config firewall vip
-        edit "virtual-server-http"
-            set comment "HTTP to HTTPS redirect"
-            set type server-load-balance
-            set server-type http
-            set extip 10.0.146.68
-            set extintf "port1"
-            set monitor "dvwa-check"
-            set ldb-method round-robin
-            set http-redirect enable
-            set extport 80
-            config realservers
-                edit 1
-                    set ip 10.0.179.242
-                    set port 80
-                next
-            end
-        next
-        edit "virtual-server-https"
-            set comment "HTTPS VIP"
-            set type server-load-balance
-            set extip 10.0.146.68
-            set extintf "port1"
-            set server-type https
-            set monitor "dvwa-check"
-            set ldb-method round-robin
-            set extport 443
-            config realservers
-                edit 1
-                    set ip 10.0.179.242
-                    set port 80
-                next
-            end
-            set ssl-certificate Fortinet_SSL_RSA2048
-        next
-    end
+    config firewall policy
+           edit 1
+            set name "dvwa"
+            set srcintf "eth0"
+            set dstintf "eth0"
+            set srcaddr "all"
+            set dstaddr "dvwa"
+            set nat enable
+           next
+       end
