@@ -23,6 +23,12 @@ spec:
           ports:
             - containerPort: 80
               name: fos
+            - name: isakmp
+              containerPort: 500
+              protocol: UDP
+            - name: ipsec-nat-t
+              containerPort: 4500
+              protocol: UDP
           volumeMounts:
             - mountPath: /data
               name: data-volume
