@@ -43,4 +43,4 @@ spec:
     targetPort: 80
   selector:
     app: dvwa
-  type: clusterip
+  type: ClusterIP
