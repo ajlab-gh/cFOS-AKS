@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: cfos-license
+    name: fos-license
     labels:
-        app: cfos
+        app: fos
         category: license
 data:
     license: |
