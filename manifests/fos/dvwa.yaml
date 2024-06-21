@@ -1,45 +1,37 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dvwa
-  labels:
-    name: dvwa
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: dvwa
   template:
     metadata:
       labels:
-        name: dvwa
+        app: dvwa
     spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
       containers:
-        - image: vulnerables/web-dvwa
-          imagePullPolicy: Always
-          name: dvwa
+        - name: dvwa
+          image: ghcr.io/digininja/dvwa:latest
           ports:
             - containerPort: 80
-              name: http-port
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http-port
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http-port
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            timeoutSeconds: 5
-          resources:
-            requests:
-              cpu: 1m
-              memory: 200Mi
-            limits:
-                cpu: 1000m
-                memory: 512Mi
+              name: http
+        - name: db
+          image: docker.io/library/mariadb:10
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: dvwa
+            - name: MYSQL_DATABASE
+              value: dvwa
+            - name: MYSQL_USER
+              value: dvwa
+            - name: MYSQL_PASSWORD
+              value: p@ssw0rd
 ---
 apiVersion: v1
 kind: Service
@@ -51,4 +43,4 @@ spec:
     targetPort: 80
   selector:
     app: dvwa
-  type: LoadBalancer
+  type: clusterip
