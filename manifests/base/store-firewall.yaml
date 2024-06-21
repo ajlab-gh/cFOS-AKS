@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       annotations:
-        container.apparmor.security.beta.kubernetes.io/cfos7210250-container: unconfined
+        container.apparmor.security.beta.kubernetes.io/cfos: unconfined
       labels:
         app: cfos
     spec:
@@ -19,7 +19,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: cfos
-          image: ghcr.io/robinmordasiewicz/fos:latest
+          image: ghcr.io/robinmordasiewicz/cfos:latest
           ports:
             - containerPort: 80
               name: cfos
