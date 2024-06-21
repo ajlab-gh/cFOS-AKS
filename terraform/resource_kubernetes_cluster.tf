@@ -127,6 +127,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
     url             = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type  = "branch"
     reference_value = "dev"
+    sync_interval_in_seconds   = 60
   }
   kustomizations {
     name                       = "fos-dev"
@@ -149,6 +150,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
     url             = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type  = "branch"
     reference_value = "main"
+    sync_interval_in_seconds   = 60
   }
   kustomizations {
     name                       = "fos-main"
