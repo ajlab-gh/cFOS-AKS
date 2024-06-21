@@ -2,25 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dvwa
+  name: mariadb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dvwa
+      app: mariadb
   template:
     metadata:
       labels:
-        app: dvwa
+        app: mariadb
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-        - name: dvwa
-          image: ghcr.io/digininja/dvwa:latest
-          env:
-            - name: DB_SERVER
-              value: mariadb
+        - name: mariadb
+          image: docker.io/library/mariadb:10
           resources:
             requests:
               cpu: 1m
@@ -28,18 +25,24 @@ spec:
             limits:
                 cpu: 1000m
                 memory: 512Mi
-          ports:
-            - containerPort: 80
-              name: http
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: mariadb
+            - name: MYSQL_DATABASE
+              value: mariadb
+            - name: MYSQL_USER
+              value: mariadb
+            - name: MYSQL_PASSWORD
+              value: p@ssw0rd
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: dvwa
+  name: mariadb
 spec:
   ports:
-  - port: 80
-    targetPort: 80
+  - port: 3306
+    targetPort: 3306
   selector:
-    app: dvwa
+    app: mariadb
   type: ClusterIP

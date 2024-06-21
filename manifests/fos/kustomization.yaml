@@ -5,6 +5,7 @@ resources:
 - fos-configmap.yaml
 - fos-license.yaml
 - dvwa.yaml
+- mariadb.yaml
 - fos-policy.yaml
 - headlessservice.yaml
 - cfosconfigmapfirewallpolicy.yaml
