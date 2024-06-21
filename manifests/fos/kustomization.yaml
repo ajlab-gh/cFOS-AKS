@@ -10,3 +10,4 @@ resources:
 - headlessservice.yaml
 - cfosconfigmapfirewallpolicy.yaml
 - cfosconfigmapfirewallvip.yaml
+- ubuntu.yaml
