@@ -2,25 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dvwa
+  name: ubuntu
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dvwa
+      app: ubuntu
   template:
     metadata:
       labels:
-        app: dvwa
+        app: ubuntu
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-        - name: dvwa
-          image: ghcr.io/digininja/dvwa:latest
-          env:
-            - name: DB_SERVER
-              value: mariadb
+        - name: ubuntu
+          image: ubuntu:22.04
           resources:
             requests:
               cpu: 1m
@@ -29,17 +26,17 @@ spec:
                 cpu: 1000m
                 memory: 512Mi
           ports:
-            - containerPort: 80
-              name: http
+            - containerPort: 22
+              name: ssh
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: dvwa
+  name: ubuntu
 spec:
   ports:
-  - port: 80
-    targetPort: 80
+  - port: 22
+    targetPort: 22
   selector:
-    app: dvwa
+    app: ubuntu
   type: ClusterIP
