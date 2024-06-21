@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.0.5](https://github.com/AJLab-GH/cFOS-AKS/compare/v1.0.4...v1.0.5) (2024-06-21)
+
+
+### Bug Fixes
+
+* add configmap ([2ea57c0](https://github.com/AJLab-GH/cFOS-AKS/commit/2ea57c02c3bd6e8673547c844a396622cbc84d80))
+* add configmap ([2fe4630](https://github.com/AJLab-GH/cFOS-AKS/commit/2fe4630b566d44e230faf4a606de16e23197731e))
+* setting all names to cfos instead of fos ([ebd821a](https://github.com/AJLab-GH/cFOS-AKS/commit/ebd821a8fa0c186bcdbdbf7cb9d4d0701b53336b))
+* setting all names to cfos instead of fos ([e169520](https://github.com/AJLab-GH/cFOS-AKS/commit/e169520e74af5a2f1be884ab657176d7241291a6))
+* setting all names to cfos instead of fos ([c6db2bb](https://github.com/AJLab-GH/cFOS-AKS/commit/c6db2bb6bcfa6697f03cd6adab5055ed2a33374f))
+* setting all names to cfos instead of fos ([f45360d](https://github.com/AJLab-GH/cFOS-AKS/commit/f45360dcc577ebb557c2f519cbd49ff5c9b82109))
+* setting all names to cfos instead of fos ([ae32618](https://github.com/AJLab-GH/cFOS-AKS/commit/ae32618d8c663977a797ede0be7e7048a55d24a9))
+* setting all names to cfos instead of fos ([6924e32](https://github.com/AJLab-GH/cFOS-AKS/commit/6924e32c066f443de07cc50648d9d14ddcdf81c2))
+* setting all names to cfos instead of fos ([05f325c](https://github.com/AJLab-GH/cFOS-AKS/commit/05f325ceaf4ab700bfe16c6fde84c82ece27d6fb))
+
 ## [1.0.4](https://github.com/AJLab-GH/cFOS-AKS/compare/v1.0.3...v1.0.4) (2024-06-20)
 
 
