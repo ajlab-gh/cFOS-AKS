@@ -7,30 +7,30 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cfos
+      app: fos
   template:
     metadata:
       annotations:
-        container.apparmor.security.beta.kubernetes.io/cfos: unconfined
+        container.apparmor.security.beta.kubernetes.io/fos: unconfined
       labels:
-        app: cfos
+        app: fos
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-        - name: cfos
-          image: ghcr.io/robinmordasiewicz/cfos:latest
+        - name: fos
+          image: ghcr.io/robinmordasiewicz/fos:latest
           ports:
             - containerPort: 80
-              name: cfos
+              name: fos
           volumeMounts:
             - mountPath: /data
               name: data-volume
           env:
-            - name: cfos-license
+            - name: fos-license
               valueFrom:
                 configMapKeyRef:
-                  name: cfos-license
+                  name: fos-license
                   key: license
           securityContext:
             allowPrivilegeEscalation: true
@@ -46,7 +46,7 @@ spec:
       volumes:
         - name: data-volume
           hostPath:
-            path: /cfosdata
+            path: /fosdata
             type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -56,7 +56,7 @@ metadata:
 spec:
   ports:
   - port: 80
-    targetPort: 8081
+    targetPort: 80
   selector:
-    app: store-firewall
+    app: fos
   type: LoadBalancer
