@@ -26,6 +26,9 @@ spec:
             - name: isakmp
               containerPort: 500
               protocol: UDP
+            - name: dvwa-vip
+              containerPort: 8000
+              protocol: TCP
             - name: ipsec-nat-t
               containerPort: 4500
               protocol: UDP
@@ -61,9 +64,9 @@ metadata:
   name: fos
 spec:
   ports:
-  - port: 80
-    name: web
-    targetPort: 80
+  - port: 8000
+    name: dvwa-vip
+    targetPort: 8000
   selector:
     app: fos
   type: LoadBalancer
