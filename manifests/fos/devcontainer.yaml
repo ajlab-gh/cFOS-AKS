@@ -17,6 +17,9 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: devcontainer
+          securityContext:
+            allowPrivilegeEscalation: true
+            runAsUser: 1000
           command:
             - "sleep"
             - "604800"
