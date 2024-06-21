@@ -18,11 +18,25 @@ spec:
       containers:
         - name: dvwa
           image: ghcr.io/digininja/dvwa:latest
+          resources:
+            requests:
+              cpu: 1m
+              memory: 200Mi
+            limits:
+                cpu: 1000m
+                memory: 512Mi
           ports:
             - containerPort: 80
               name: http
         - name: db
           image: docker.io/library/mariadb:10
+          resources:
+            requests:
+              cpu: 1m
+              memory: 200Mi
+            limits:
+                cpu: 1000m
+                memory: 512Mi
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: dvwa
