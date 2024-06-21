@@ -130,7 +130,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
     name                       = "fos-dev"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/overlays/fos"
+    path                       = "./manifests/overlays/fos-dev"
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
@@ -151,7 +151,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
     name                       = "fos-main"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/overlays/fos"
+    path                       = "./manifests/overlays/fos-main"
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
