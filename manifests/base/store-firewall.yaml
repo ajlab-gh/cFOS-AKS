@@ -10,6 +10,8 @@ spec:
       app: cfos
   template:
     metadata:
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/cfos7210250-container: unconfined
       labels:
         app: cfos
     spec:
