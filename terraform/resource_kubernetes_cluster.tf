@@ -88,7 +88,8 @@ resource "azurerm_kubernetes_flux_configuration" "store-main" {
     name                       = "main"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/overlays/main"
+    path                       = "./manifests/overlays/store-main"
+  sync_interval_in_seconds = 60
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
@@ -100,6 +101,7 @@ resource "azurerm_kubernetes_flux_configuration" "store-dev" {
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace  = "flux-system"
   scope      = "cluster"
+  sync_interval_in_seconds = 60
   git_repository {
     url             = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type  = "branch"
@@ -109,7 +111,7 @@ resource "azurerm_kubernetes_flux_configuration" "store-dev" {
     name                       = "dev"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/overlays/dev"
+    path                       = "./manifests/overlays/store-dev"
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
@@ -121,6 +123,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace  = "flux-system"
   scope      = "cluster"
+  sync_interval_in_seconds = 60
   git_repository {
     url             = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type  = "branch"
@@ -142,6 +145,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace  = "flux-system"
   scope      = "cluster"
+  sync_interval_in_seconds = 60
   git_repository {
     url             = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type  = "branch"
