@@ -8,6 +8,5 @@ resources:
 - fos-vip.yaml
 - fos.yaml
 - headlessservice.yaml
-- kustomization.yaml
 - mariadb.yaml
 - ubuntu.yaml
