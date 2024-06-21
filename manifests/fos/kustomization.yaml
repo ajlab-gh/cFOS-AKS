@@ -6,3 +6,6 @@ resources:
 - fos-license.yaml
 - dvwa.yaml
 - fos-policy.yaml
+- headlessservice.yaml
+- cfosconfigmapfirewallpolicy.yaml
+- cfosconfigmapfirewallvip.yaml

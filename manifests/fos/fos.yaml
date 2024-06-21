@@ -62,6 +62,7 @@ metadata:
 spec:
   ports:
   - port: 80
+    name: web
     targetPort: 80
   selector:
     app: fos
