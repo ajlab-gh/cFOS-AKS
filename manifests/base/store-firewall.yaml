@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-firewall
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fos
+  template:
+    metadata:
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/fos: unconfined
+      labels:
+        app: fos
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+        - name: fos
+          image: ghcr.io/robinmordasiewicz/fos:latest
+          ports:
+            - containerPort: 80
+              name: fos
+            - name: isakmp
+              containerPort: 500
+              protocol: UDP
+            - name: ipsec-nat-t
+              containerPort: 4500
+              protocol: UDP
+          volumeMounts:
+            - mountPath: /data
+              name: data-volume
+          env:
+            - name: fos-license
+              valueFrom:
+                configMapKeyRef:
+                  name: fos-license
+                  key: license
+          securityContext:
+            allowPrivilegeEscalation: true
+            capabilities:
+                add: ["NET_ADMIN", "SYS_ADMIN", "NET_RAW"]
+          resources:
+            requests:
+              cpu: 4m
+              memory: 2Gi
+            limits:
+              cpu: 8000m
+              memory: 4096Mi
+      volumes:
+        - name: data-volume
+          hostPath:
+            path: /fosdata
+            type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: store-firewall
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: fos
+  type: LoadBalancer

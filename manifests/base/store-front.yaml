@@ -64,4 +64,4 @@ spec:
     targetPort: 8080
   selector:
     app: store-front
-  type: LoadBalancer
+  type: ClusterIP

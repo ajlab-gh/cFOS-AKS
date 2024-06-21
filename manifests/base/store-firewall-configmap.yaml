@@ -23,7 +23,7 @@ metadata:
     name: read-configmaps
 subjects:
     - kind: ServiceAccount
-      name: cfos-serviceaccount
+      name: default
       apiGroup: ""
 roleRef:
     kind: ClusterRole
@@ -47,7 +47,7 @@ metadata:
     name: read-secrets
 subjects:
     - kind: ServiceAccount
-      name: cfos-serviceaccount
+      name: default
       apiGroup: ""
 roleRef:
     kind: ClusterRole

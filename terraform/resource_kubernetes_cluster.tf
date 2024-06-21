@@ -88,7 +88,8 @@ resource "azurerm_kubernetes_flux_configuration" "store-main" {
     name                       = "main"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/overlays/main"
+    path                       = "./manifests/overlays/store-main"
+    sync_interval_in_seconds   = 60
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
@@ -109,7 +110,52 @@ resource "azurerm_kubernetes_flux_configuration" "store-dev" {
     name                       = "dev"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/overlays/dev"
+    path                       = "./manifests/overlays/store-dev"
+    sync_interval_in_seconds   = 60
+  }
+  depends_on = [
+    azurerm_kubernetes_cluster_extension.flux-extension
+  ]
+}
+resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
+  for_each   = local.kubernetes_clusters
+  name       = "fos-dev"
+  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace  = "flux-system"
+  scope      = "cluster"
+  git_repository {
+    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type           = "branch"
+    reference_value          = "dev"
+    sync_interval_in_seconds = 60
+  }
+  kustomizations {
+    name                       = "fos-dev"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+    path                       = "./manifests/overlays/fos-dev"
+  }
+  depends_on = [
+    azurerm_kubernetes_cluster_extension.flux-extension
+  ]
+}
+resource "azurerm_kubernetes_flux_configuration" "fos-main" {
+  for_each   = local.kubernetes_clusters
+  name       = "fos-main"
+  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace  = "flux-system"
+  scope      = "cluster"
+  git_repository {
+    url             = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type  = "branch"
+    reference_value = "main"
+  }
+  kustomizations {
+    name                       = "fos-main"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+    path                       = "./manifests/overlays/fos-main"
+    sync_interval_in_seconds   = 60
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
