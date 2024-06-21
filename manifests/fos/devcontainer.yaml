@@ -2,25 +2,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ubuntu
+  name: devcontainer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ubuntu
+      app: devcontainer
   template:
     metadata:
       labels:
-        app: ubuntu
+        app: devcontainer
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-        - name: ubuntu
+        - name: devcontainer
           command:
             - "sleep"
             - "604800"
-          image: ubuntu:22.04
+          image: ghcr.io/robinmordasiewicz/devcontainer:latest
           resources:
             requests:
               cpu: 1m
