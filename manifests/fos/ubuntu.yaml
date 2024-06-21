@@ -25,18 +25,12 @@ spec:
             limits:
                 cpu: 1000m
                 memory: 512Mi
-          ports:
-            - containerPort: 22
-              name: ssh
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ubuntu
 spec:
-  ports:
-  - port: 22
-    targetPort: 22
   selector:
     app: ubuntu
   type: ClusterIP
