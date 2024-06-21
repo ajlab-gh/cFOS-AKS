@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu
+  template:
+    metadata:
+      labels:
+        app: ubuntu
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+        - name: ubuntu
+          image: ubuntu:22.04
+          resources:
+            requests:
+              cpu: 1m
+              memory: 200Mi
+            limits:
+                cpu: 1000m
+                memory: 512Mi
+          ports:
+            - containerPort: 22
+              name: ssh
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ubuntu
+spec:
+  ports:
+  - port: 22
+    targetPort: 22
+  selector:
+    app: ubuntu
+  type: ClusterIP
