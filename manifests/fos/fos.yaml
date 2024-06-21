@@ -58,7 +58,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: store-firewall
+  name: fos
 spec:
   ports:
   - port: 80

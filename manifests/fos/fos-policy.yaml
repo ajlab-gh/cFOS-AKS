@@ -8,20 +8,51 @@ metadata:
 data:
   type: partial
   config: |-
-    config firewall policy
-           edit "300"
-               set utm-status enable
-               set name "pod_to_internet_HTTPS_HTTP"
-               set srcintf any
-               set dstintf eth0
-               set srcaddr all
-               set dstaddr all
-               set service HTTPS HTTP PING DNS
-               set ssl-ssh-profile "deep-inspection"
-               set ips-sensor "default"
-               set webfilter-profile "default"
-               set av-profile "default"
-               set nat enable
-               set logtraffic all
-           next
-       end
+    config firewall ldb-monitor
+        edit "dvwa-check"
+            set type http
+            set http-get "/login.php"
+            set http-match "200 OK"
+        next
+        edit "http-check"
+            set type http
+            set http-get "/"
+            set http-match "200 OK"
+        next
+    end
+    config firewall vip
+        edit "virtual-server-http"
+            set comment "HTTP to HTTPS redirect"
+            set type server-load-balance
+            set server-type http
+            set extip ${VAR-hub-nva-vip}
+            set extintf "port1"
+            set monitor "dvwa-check"
+            set ldb-method round-robin
+            set http-redirect enable
+            set extport 80
+            config realservers
+                edit 1
+                    set ip ${VAR-spoke-container-server-ip}
+                    set port 80
+                next
+            end
+        next
+        edit "virtual-server-https"
+            set comment "HTTPS VIP"
+            set type server-load-balance
+            set extip ${VAR-hub-nva-vip}
+            set extintf "port1"
+            set server-type https
+            set monitor "dvwa-check"
+            set ldb-method round-robin
+            set extport 443
+            config realservers
+                edit 1
+                    set ip ${VAR-spoke-container-server-ip}
+                    set port 80
+                next
+            end
+            set ssl-certificate Fortinet_SSL_RSA2048
+        next
+    end
