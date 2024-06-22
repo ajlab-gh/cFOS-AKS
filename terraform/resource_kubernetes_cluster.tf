@@ -130,7 +130,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
     sync_interval_in_seconds   = 60
   }
   kustomizations {
-    name                       = "fos-dev"
+    name                       = "kustomize"
     recreating_enabled         = true
     garbage_collection_enabled = true
     path                       = "./manifests/overlays/fos-dev"
@@ -153,10 +153,33 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
     sync_interval_in_seconds   = 60
   }
   kustomizations {
-    name                       = "fos-main"
+    name                       = "kustomize"
     recreating_enabled         = true
     garbage_collection_enabled = true
     path                       = "./manifests/overlays/fos-main"
+    sync_interval_in_seconds   = 60
+  }
+  depends_on = [
+    azurerm_kubernetes_cluster_extension.flux-extension
+  ]
+}
+resource "azurerm_kubernetes_flux_configuration" "ingress-nginx-main" {
+  for_each   = local.kubernetes_clusters
+  name       = "ingress-nginx-main"
+  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace  = "flux-system"
+  scope      = "cluster"
+  git_repository {
+    url             = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type  = "branch"
+    reference_value = "main"
+    sync_interval_in_seconds   = 60
+  }
+  kustomizations {
+    name                       = "kustomize"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+    path                       = "./manifests/overlays/ingress-nginx-main"
     sync_interval_in_seconds   = 60
   }
   depends_on = [

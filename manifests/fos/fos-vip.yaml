@@ -14,7 +14,7 @@ data:
             set mappedip dvwa
             set extintf "eth0"
             set portforward enable
-            set extport "8000"
+            set extport "80"
             set mappedport "80"
            next
        end
