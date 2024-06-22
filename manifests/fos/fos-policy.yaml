@@ -9,7 +9,7 @@ data:
   type: partial
   config: |-
     config firewall policy
-           edit 1
+        edit 1
             set name "dvwa"
             set srcintf "eth0"
             set dstintf "eth0"
@@ -18,5 +18,5 @@ data:
             set service "ALL"
             set nat enable
             set action accept
-           next
-       end
+        next
+    end
