@@ -179,7 +179,7 @@ resource "azurerm_kubernetes_flux_configuration" "nginx-ingress-controller-main"
     name                       = "kustomize"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/nginx-ingress-controller"
+    path                       = "./manifests/overlays/nginx-ingress-controller-main"
     sync_interval_in_seconds   = 60
   }
   depends_on = [
