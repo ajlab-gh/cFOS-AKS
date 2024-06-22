@@ -130,7 +130,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
     sync_interval_in_seconds   = 60
   }
   kustomizations {
-    name                       = "fos-dev"
+    name                       = "kustomize"
     recreating_enabled         = true
     garbage_collection_enabled = true
     path                       = "./manifests/overlays/fos-dev"
@@ -153,7 +153,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
     sync_interval_in_seconds   = 60
   }
   kustomizations {
-    name                       = "fos-main"
+    name                       = "kustomize"
     recreating_enabled         = true
     garbage_collection_enabled = true
     path                       = "./manifests/overlays/fos-main"
