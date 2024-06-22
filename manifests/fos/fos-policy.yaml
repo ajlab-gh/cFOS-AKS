@@ -14,9 +14,9 @@ data:
             set srcintf "eth0"
             set dstintf "eth0"
             set srcaddr "all"
-            set dstaddr "dvwa"
-            set nat enable
+            set dstaddr "all"
             set service "ALL"
+            set nat enable
             set action accept
            next
        end
