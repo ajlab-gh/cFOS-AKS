@@ -163,9 +163,9 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
 }
-resource "azurerm_kubernetes_flux_configuration" "nginx-ingress-controller-main" {
+resource "azurerm_kubernetes_flux_configuration" "ingress-nginx-main" {
   for_each   = local.kubernetes_clusters
-  name       = "nginx-ingress-controller-main"
+  name       = "ingress-nginx-main"
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace  = "flux-system"
   scope      = "cluster"
@@ -179,7 +179,7 @@ resource "azurerm_kubernetes_flux_configuration" "nginx-ingress-controller-main"
     name                       = "kustomize"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/overlays/nginx-ingress-controller-main"
+    path                       = "./manifests/overlays/ingress-nginx-main"
     sync_interval_in_seconds   = 60
   }
   depends_on = [
