@@ -163,3 +163,26 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
 }
+resource "azurerm_kubernetes_flux_configuration" "nginx-ingress-controller-main" {
+  for_each   = local.kubernetes_clusters
+  name       = "nginx-ingress-controller-main"
+  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace  = "flux-system"
+  scope      = "cluster"
+  git_repository {
+    url             = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type  = "branch"
+    reference_value = "main"
+    sync_interval_in_seconds   = 60
+  }
+  kustomizations {
+    name                       = "kustomize"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+    path                       = "./manifests/nginx-ingress-controller"
+    sync_interval_in_seconds   = 60
+  }
+  depends_on = [
+    azurerm_kubernetes_cluster_extension.flux-extension
+  ]
+}
