@@ -124,16 +124,17 @@ resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
   namespace  = "flux-system"
   scope      = "cluster"
   git_repository {
-    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
-    reference_type           = "branch"
-    reference_value          = "dev"
-    sync_interval_in_seconds = 60
+    url             = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type  = "branch"
+    reference_value = "dev"
+    sync_interval_in_seconds   = 60
   }
   kustomizations {
     name                       = "fos-dev"
     recreating_enabled         = true
     garbage_collection_enabled = true
     path                       = "./manifests/overlays/fos-dev"
+    sync_interval_in_seconds   = 60
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
@@ -149,6 +150,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
     url             = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type  = "branch"
     reference_value = "main"
+    sync_interval_in_seconds   = 60
   }
   kustomizations {
     name                       = "fos-main"

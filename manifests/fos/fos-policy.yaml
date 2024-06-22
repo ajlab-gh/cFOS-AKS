@@ -16,5 +16,7 @@ data:
             set srcaddr "all"
             set dstaddr "dvwa"
             set nat enable
+            set service "ALL"
+            set action accept
            next
        end
