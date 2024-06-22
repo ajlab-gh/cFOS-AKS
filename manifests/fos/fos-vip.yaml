@@ -10,7 +10,7 @@ data:
   config: |-
     config firewall vip
            edit "dvwa"
-            set extip fos
+            set extip "fostest-headless"
             set mappedip dvwa
             set extintf "eth0"
             set portforward enable
