@@ -26,7 +26,7 @@ spec:
             - "604800"
           stdin: true
           tty: true
-          image: ghcr.io/robinmordasiewicz/devcontainer:latest
+          image: ghcr.io/robinmordasiewicz/devcontainer@sha256:09c79ff5cf031119e483072963679154e82acbc558e3e8d05ffa69ec19c4ade2
           workingDir: /home/vscode
           resources:
             requests:
