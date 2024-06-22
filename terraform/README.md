@@ -12,5 +12,8 @@ az feature register --namespace Microsoft.ContainerService --name NodeAutoProvis
 az feature register --namespace Microsoft.ContainerService --name DisableSSHPreview
 az feature register --namespace Microsoft.ContainerService --name AutomaticSKUPreview
 
+az provider register --namespace Microsoft.Kubernetes
 az provider register --namespace Microsoft.ContainerService
+az provider register --namespace Microsoft.KubernetesConfiguration
+
 ```
