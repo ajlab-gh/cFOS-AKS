@@ -67,10 +67,16 @@ output "kube_config" {
 }
 
 resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
-  for_each       = local.kubernetes_clusters
-  name           = "flux-extension"
-  cluster_id     = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  extension_type = "microsoft.flux"
+  for_each          = local.kubernetes_clusters
+  name              = "flux-extension"
+  cluster_id        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  extension_type    = "microsoft.flux"
+  release_namespace = "flux-system"
+  configuration_settings = {
+    "image-automation-controller.enabled" = true,
+    "image-reflector-controller.enabled"  = true,
+    "notification-controller.enabled"     = true,
+  }
 }
 
 #resource "azurerm_kubernetes_flux_configuration" "store-main" {
@@ -79,6 +85,7 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
 #  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
 #  namespace  = "flux-system"
 #  scope      = "cluster"
+#  continuous_reconciliation_enabled = true
 #  git_repository {
 #    url             = "https://github.com/AJLab-GH/cFOS-AKS"
 #    reference_type  = "branch"
@@ -101,6 +108,7 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
 #  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
 #  namespace  = "flux-system"
 #  scope      = "cluster"
+#  continuous_reconciliation_enabled = true
 #  git_repository {
 #    url             = "https://github.com/AJLab-GH/cFOS-AKS"
 #    reference_type  = "branch"
@@ -123,11 +131,12 @@ resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace  = "flux-system"
   scope      = "cluster"
+  continuous_reconciliation_enabled = true
   git_repository {
-    url             = "https://github.com/AJLab-GH/cFOS-AKS"
-    reference_type  = "branch"
-    reference_value = "dev"
-    sync_interval_in_seconds   = 60
+    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type           = "branch"
+    reference_value          = "dev"
+    sync_interval_in_seconds = 60
   }
   kustomizations {
     name                       = "kustomize"
@@ -146,11 +155,12 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace  = "flux-system"
   scope      = "cluster"
+  continuous_reconciliation_enabled = true
   git_repository {
-    url             = "https://github.com/AJLab-GH/cFOS-AKS"
-    reference_type  = "branch"
-    reference_value = "main"
-    sync_interval_in_seconds   = 60
+    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type           = "branch"
+    reference_value          = "main"
+    sync_interval_in_seconds = 60
   }
   kustomizations {
     name                       = "kustomize"
@@ -169,11 +179,12 @@ resource "azurerm_kubernetes_flux_configuration" "ingress-nginx-main" {
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace  = "flux-system"
   scope      = "cluster"
+  continuous_reconciliation_enabled = true
   git_repository {
-    url             = "https://github.com/AJLab-GH/cFOS-AKS"
-    reference_type  = "branch"
-    reference_value = "main"
-    sync_interval_in_seconds   = 60
+    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type           = "branch"
+    reference_value          = "main"
+    sync_interval_in_seconds = 60
   }
   kustomizations {
     name                       = "kustomize"
