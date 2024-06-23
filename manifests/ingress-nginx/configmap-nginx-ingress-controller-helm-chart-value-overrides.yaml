@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  name: nginx-ingress-controller-helm-chart-value-overrides
-  namespace: nginx-ingress-controller
-data:
-  values.yaml: |-
-    # paste chart values.yaml (indented) here and alter as required
