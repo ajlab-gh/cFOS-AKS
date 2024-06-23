@@ -173,9 +173,9 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
 }
-resource "azurerm_kubernetes_flux_configuration" "ingress-nginx-main" {
+resource "azurerm_kubernetes_flux_configuration" "ingress-nginx-dev" {
   for_each   = local.kubernetes_clusters
-  name       = "ingress-nginx-main"
+  name       = "ingress-nginx-dev"
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace  = "flux-system"
   scope      = "cluster"
@@ -183,14 +183,14 @@ resource "azurerm_kubernetes_flux_configuration" "ingress-nginx-main" {
   git_repository {
     url                      = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type           = "branch"
-    reference_value          = "main"
+    reference_value          = "dev"
     sync_interval_in_seconds = 60
   }
   kustomizations {
     name                       = "kustomize"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/overlays/ingress-nginx-main"
+    path                       = "./manifests/overlays/ingress-nginx-dev"
     sync_interval_in_seconds   = 60
   }
   depends_on = [
