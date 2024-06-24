@@ -61,9 +61,8 @@ metadata:
   name: fos
 spec:
   ports:
-  - port: 80
-    name: http
-    targetPort: 80
+  - port: 8001
+    targetPort: 8001
   selector:
     app: fos
-  type: LoadBalancer
+  type: ClusterIP

@@ -11,8 +11,8 @@ spec:
       paths:
       - backend:
           service:
-            name: nginx-ingress-controller-default-backend
+            name: fos-external
             port:
-              number: 80
+              number: 8001
         path: /
         pathType: Prefix
