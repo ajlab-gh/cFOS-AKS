@@ -201,9 +201,9 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
 
 resource "azurerm_kubernetes_flux_configuration" "gitops-flux2-kustomize-helm-mt" {
   for_each                          = local.kubernetes_clusters
-  name                              = "cluster-config"
+  name                              = "gitops-flux2-kustomize-helm-mt"
   cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace                         = "cluster-config"
+  namespace                         = "flux-system"
   scope                             = "cluster"
   continuous_reconciliation_enabled = true
   git_repository {
