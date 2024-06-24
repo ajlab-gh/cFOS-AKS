@@ -131,30 +131,34 @@ resource "azurerm_kubernetes_flux_configuration" "ingress-nginx" {
   for_each                          = local.kubernetes_clusters
   name                              = "ingress-nginx"
   cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  #namespace                         = "cluster-config"
   namespace                         = "flux-system"
   scope                             = "cluster"
   continuous_reconciliation_enabled = true
   git_repository {
-    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    #url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    url                      = "https://github.com/Azure/gitops-flux2-kustomize-helm-mt"
     reference_type           = "branch"
-    reference_value          = "dev"
+    reference_value          = "main"
     sync_interval_in_seconds = 60
   }
   kustomizations {
     name                       = "infra"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/infrastructure"
+    #path                       = "./manifests/infrastructure"
+    path                       = "./infrastructure"
     sync_interval_in_seconds   = 60
   }
-  kustomizations {
-    name                       = "apps"
-    recreating_enabled         = true
-    garbage_collection_enabled = true
-    path                       = "./manifests/apps/staging"
-    sync_interval_in_seconds   = 60
-    depends_on                 = ["infra"]
-  }
+  #kustomizations {
+  #  name                       = "apps"
+  #  recreating_enabled         = true
+  #  garbage_collection_enabled = true
+  #  #path                       = "./manifests/apps/staging"
+  #  path                       = "./apps/staging"
+  #  sync_interval_in_seconds   = 60
+  #  depends_on                 = ["infra"]
+  #}
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
