@@ -207,23 +207,23 @@ resource "azurerm_kubernetes_flux_configuration" "gitops-flux2-kustomize-helm-mt
   scope                             = "cluster"
   continuous_reconciliation_enabled = true
   git_repository {
-    url                      = "https://github.com/Azure/gitops-flux2-kustomize-helm-mt"
+    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
     reference_type           = "branch"
-    reference_value          = "main"
+    reference_value          = "dev"
     sync_interval_in_seconds = 60
   }
   kustomizations {
     name                       = "infra"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./infrastructure"
+    path                       = "./manifests/infrastructure"
     sync_interval_in_seconds   = 60
   }
   kustomizations {
     name                       = "apps"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./apps/staging"
+    path                       = "./manifests/apps/staging"
     sync_interval_in_seconds   = 60
     depends_on                 = ["infra"]
   }
