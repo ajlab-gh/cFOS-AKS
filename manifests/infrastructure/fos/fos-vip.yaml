@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fosconfigvip
+  labels:
+      app: fos
+      category: config
+data:
+  type: partial
+  config: |-
+    config firewall vip
+           edit "dvwa"
+            set extip "fostest-headless"
+            set mappedip dvwa
+            set extintf "eth0"
+            set portforward enable
+            set extport "8001"
+            set mappedport "8001"
+           next
+       end
