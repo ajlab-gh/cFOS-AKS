@@ -4,4 +4,4 @@ resources:
   - sources
   - nginx
   - redis
-  - devcontainer
+  - fos
