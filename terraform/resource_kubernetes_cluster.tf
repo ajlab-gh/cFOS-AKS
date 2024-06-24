@@ -80,9 +80,9 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   }
 }
 
-resource "azurerm_kubernetes_flux_configuration" "ingress-nginx" {
+resource "azurerm_kubernetes_flux_configuration" "ingress-fos" {
   for_each                          = local.kubernetes_clusters
-  name                              = "ingress-nginx"
+  name                              = "ingress-fos"
   cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace                         = "cluster-config"
   #namespace                         = "flux-system"
