@@ -76,6 +76,7 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
     "image-automation-controller.enabled" = true,
     "image-reflector-controller.enabled"  = true,
     "notification-controller.enabled"     = true,
+    "helm-controller.detectDrift"         = true
   }
 }
 
@@ -126,11 +127,11 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
 #  ]
 #}
 resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
-  for_each   = local.kubernetes_clusters
-  name       = "fos-dev"
-  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace  = "flux-system"
-  scope      = "cluster"
+  for_each                          = local.kubernetes_clusters
+  name                              = "fos-dev"
+  cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace                         = "flux-system"
+  scope                             = "cluster"
   continuous_reconciliation_enabled = true
   git_repository {
     url                      = "https://github.com/AJLab-GH/cFOS-AKS"
@@ -150,11 +151,11 @@ resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
   ]
 }
 resource "azurerm_kubernetes_flux_configuration" "fos-main" {
-  for_each   = local.kubernetes_clusters
-  name       = "fos-main"
-  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace  = "flux-system"
-  scope      = "cluster"
+  for_each                          = local.kubernetes_clusters
+  name                              = "fos-main"
+  cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace                         = "flux-system"
+  scope                             = "cluster"
   continuous_reconciliation_enabled = true
   git_repository {
     url                      = "https://github.com/AJLab-GH/cFOS-AKS"
@@ -173,25 +174,58 @@ resource "azurerm_kubernetes_flux_configuration" "fos-main" {
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
 }
-resource "azurerm_kubernetes_flux_configuration" "ingress-nginx-dev" {
-  for_each   = local.kubernetes_clusters
-  name       = "ingress-nginx-dev"
-  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace  = "flux-system"
-  scope      = "cluster"
+#resource "azurerm_kubernetes_flux_configuration" "ingress-nginx-dev" {
+#  for_each                          = local.kubernetes_clusters
+#  name                              = "ingress-nginx-dev"
+#  cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+#  namespace                         = "flux-system"
+#  scope                             = "cluster"
+#  continuous_reconciliation_enabled = true
+#  git_repository {
+#    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+#    reference_type           = "branch"
+#    reference_value          = "dev"
+#    sync_interval_in_seconds = 60
+#  }
+#  kustomizations {
+#    name                       = "kustomize"
+#    recreating_enabled         = true
+#    garbage_collection_enabled = true
+#    path                       = "./manifests/overlays/ingress-nginx-dev"
+#    sync_interval_in_seconds   = 60
+#  }
+#  depends_on = [
+#    azurerm_kubernetes_cluster_extension.flux-extension
+#  ]
+#}
+
+resource "azurerm_kubernetes_flux_configuration" "gitops-flux2-kustomize-helm-mt" {
+  for_each                          = local.kubernetes_clusters
+  name                              = "cluster-config"
+  cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace                         = "cluster-config"
+  scope                             = "cluster"
   continuous_reconciliation_enabled = true
   git_repository {
-    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    url                      = "https://github.com/Azure/gitops-flux2-kustomize-helm-mt"
     reference_type           = "branch"
-    reference_value          = "dev"
+    reference_value          = "main"
     sync_interval_in_seconds = 60
   }
   kustomizations {
-    name                       = "kustomize"
+    name                       = "infra"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/overlays/ingress-nginx-dev"
+    path                       = "./infrastructure"
     sync_interval_in_seconds   = 60
+  }
+  kustomizations {
+    name                       = "apps"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+    path                       = "./apps/staging"
+    sync_interval_in_seconds   = 60
+    depends_on                 = ["infra"]
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
