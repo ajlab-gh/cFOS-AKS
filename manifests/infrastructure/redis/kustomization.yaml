@@ -5,7 +5,7 @@ resources:
   - namespace.yaml
 configMapGenerator:
   - name: redis-values
-    namespace: flux-system
+    namespace: cluster-config
     files:
       - values.yaml=values.yaml
 configurations:
