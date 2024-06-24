@@ -6,4 +6,4 @@ metadata:
   namespace: nginx
 spec:
   type: ExternalName
-  externalName: fos.fos-dev.svc.cluster.local
+  externalName: fos.fos.svc.cluster.local
