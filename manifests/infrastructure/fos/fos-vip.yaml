@@ -12,10 +12,10 @@ data:
     config firewall vip
            edit "dvwa"
             set extip "fostest-headless"
-            set mappedip dvwa
+            set mappedip 1.1.1.1
             set extintf "eth0"
             set portforward enable
             set extport "8001"
-            set mappedport "8001"
+            set mappedport "80"
            next
        end
