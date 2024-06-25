@@ -24,6 +24,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   dns_prefix                        = "${var.prefix}-aks-${each.key}"
   kubernetes_version                = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
   sku_tier                          = "Standard"
+  node_resource_group               = "MC-${each.value.name}"
   role_based_access_control_enabled = true
   oidc_issuer_enabled               = true
   workload_identity_enabled         = true
@@ -81,17 +82,17 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
 }
 
 resource "azurerm_kubernetes_flux_configuration" "ingress-fos" {
-  for_each                          = local.kubernetes_clusters
-  name                              = "ingress-fos"
-  cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace                         = "cluster-config"
+  for_each   = local.kubernetes_clusters
+  name       = "ingress-fos"
+  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace  = "cluster-config"
   #namespace                         = "flux-system"
   scope                             = "cluster"
   continuous_reconciliation_enabled = true
   git_repository {
-    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    url = "https://github.com/AJLab-GH/cFOS-AKS"
     #url                      = "https://github.com/Azure/gitops-flux2-kustomize-helm-mt"
-    reference_type           = "branch"
+    reference_type = "branch"
     #reference_value          = "main"
     reference_value          = "dev"
     sync_interval_in_seconds = 60
@@ -102,7 +103,7 @@ resource "azurerm_kubernetes_flux_configuration" "ingress-fos" {
     garbage_collection_enabled = true
     path                       = "./manifests/infrastructure"
     #path                       = "./infrastructure"
-    sync_interval_in_seconds   = 60
+    sync_interval_in_seconds = 60
   }
   kustomizations {
     name                       = "apps"
@@ -110,8 +111,8 @@ resource "azurerm_kubernetes_flux_configuration" "ingress-fos" {
     garbage_collection_enabled = true
     path                       = "./manifests/apps/staging"
     #path                       = "./apps/staging"
-    sync_interval_in_seconds   = 60
-    depends_on                 = ["infrastructure"]
+    sync_interval_in_seconds = 60
+    depends_on               = ["infrastructure"]
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
