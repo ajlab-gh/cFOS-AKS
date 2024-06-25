@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dvwa
+  namespace: fos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dvwa
+  template:
+    metadata:
+      labels:
+        app: dvwa
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+        - name: dvwa
+          image: ghcr.io/digininja/dvwa:latest
+          env:
+            - name: DB_SERVER
+              value: mariadb
+          resources:
+            requests:
+              cpu: 1m
+              memory: 200Mi
+            limits:
+                cpu: 1000m
+                memory: 512Mi
+          ports:
+            - containerPort: 80
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dvwa
+  namespace: fos
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: dvwa
+  type: ClusterIP
