@@ -1,9 +1,0 @@
-# fos-external-service.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: fos-external
-  namespace: nginx
-spec:
-  type: ExternalName
-  externalName: fos.fos.svc.cluster.local
