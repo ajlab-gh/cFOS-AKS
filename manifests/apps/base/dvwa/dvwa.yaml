@@ -38,6 +38,8 @@ kind: Service
 metadata:
   name: dvwa
   namespace: dvwa
+  labels:
+    app: dvwa
 spec:
   ports:
   - port: 80

@@ -26,3 +26,6 @@ spec:
     ingressClassResource:
       name: nginx
     resourcesPreset: small
+    metadata:
+      labels:
+        app: nginx
