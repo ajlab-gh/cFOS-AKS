@@ -54,6 +54,7 @@ spec:
               memory: 4096Mi
       volumes:
         - name: data-volume
+          emptyDir:
           hostPath:
             path: /fosdata
             type: DirectoryOrCreate
