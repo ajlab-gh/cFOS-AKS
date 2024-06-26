@@ -1,7 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
- - allow-dvwa-to-fos.yaml
- - allow-fos-to-dvwa.yaml
- - allow-fos-to-nginx.yaml
- - allow-nginx-to-fos.yaml
+ - allow-all-nginx.ns.yaml
+ - allow-all-dvwa.ns.yaml
+ - allow-all-fos.ns.yaml

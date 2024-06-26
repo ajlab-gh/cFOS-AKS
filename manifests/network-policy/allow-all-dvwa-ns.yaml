@@ -1,14 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-fos-to-nginx
-  namespace: nginx
+  name: allow-all-dvwa-ns
+  namespace: dvwa
 spec:
   podSelector: {}
   policyTypes:
   - Ingress
+  - Egress
   ingress:
   - from:
+    - namespaceSelector:
+        matchLabels:
+          name: fos
+  egress:
+  - to:
     - namespaceSelector:
         matchLabels:
           name: fos

@@ -38,10 +38,12 @@ kind: Service
 metadata:
   name: dvwa
   namespace: dvwa
+  labels:
+    app: dvwa
 spec:
   ports:
   - port: 80
-    targetPort: 8080
+    targetPort: 80
   selector:
     app: dvwa
   type: ClusterIP
