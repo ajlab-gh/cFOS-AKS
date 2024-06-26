@@ -55,9 +55,6 @@ spec:
       volumes:
         - name: data-volume
           emptyDir: {}
-          hostPath:
-            path: /fosdata
-            type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: Service
