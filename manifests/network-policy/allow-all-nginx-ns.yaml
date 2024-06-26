@@ -15,7 +15,7 @@ spec:
             matchLabels:
               name: fos
   egress:
-    - from:
+    - to:
         - namespaceSelector:
             matchLabels:
               name: fos
