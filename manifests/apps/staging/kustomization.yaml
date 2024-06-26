@@ -4,5 +4,6 @@ resources:
   - ../base/podinfo
   - ../base/dvwa
   - ../base/devcontainer
+  - ../base/ollama
 patchesStrategicMerge:
   - podinfo-values.yaml
