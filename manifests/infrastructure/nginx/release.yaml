@@ -25,4 +25,4 @@ spec:
       type: LoadBalancer
     ingressClassResource:
       name: nginx
-    resourcesPreset: nano
+    resourcesPreset: small
