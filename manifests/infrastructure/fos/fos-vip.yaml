@@ -10,7 +10,7 @@ data:
   type: partial
   config: |-
     config firewall vip
-           edit "dvwa"
+           edit "dvwa-vip"
             set extip "fostest-headless"
             set mappedip 1.1.1.1
             set extintf "eth0"
