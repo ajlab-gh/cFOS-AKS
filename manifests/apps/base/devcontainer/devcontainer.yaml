@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: devcontainer
-  namespace: nginx
+  namespace: fos
 spec:
   replicas: 1
   selector:
