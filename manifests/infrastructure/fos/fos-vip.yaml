@@ -9,6 +9,16 @@ metadata:
 data:
   type: partial
   config: |-
+    config firewall vip
+        edit "dvwa-vip"
+            set extip "fostest-headless"
+            set mappedip 1.1.1.1
+            set extintf "eth0"
+            set portforward enable
+            set extport "8001"
+            set mappedport "80"
+        next
+    end
     config firewall policy
         edit 1
             set name "dvwa"
@@ -19,15 +29,5 @@ data:
             set service "ALL"
             set nat enable
             set action accept
-        next
-    end
-    config firewall vip
-        edit "dvwa-vip"
-            set extip "fostest-headless"
-            set mappedip 1.1.1.1
-            set extintf "eth0"
-            set portforward enable
-            set extport "8001"
-            set mappedport "80"
         next
     end
