@@ -1,9 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
- - allow-all-dvwa-ns.yaml
- - allow-all-fos-ns.yaml
- - allow-all-nginx-ns.yaml
- - allow-devcontainer-default-ns.yaml
- - allow-fos-default-ns.yaml
- - allow-api-default-ns.yaml
+ - allow-all-dns-ns.yaml
