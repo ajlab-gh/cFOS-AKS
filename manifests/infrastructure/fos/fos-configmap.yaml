@@ -11,7 +11,33 @@ imagePullSecrets:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-    name: configmap-reader
+    name: dvwa-svc-reader
+    namespace: dvwa
+rules:
+    - apiGroups: [""]
+      resources: ["services"]
+      verbs: ["get", "watch", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+    name: dvwa-read-svc
+    namespace: dvwa
+subjects:
+    - kind: ServiceAccount
+      name: default
+      apiGroup: ""
+roleRef:
+    kind: ClusterRole
+    name: dvwa-svc-reader
+    apiGroup: ""
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+    name: fos-configmap-reader
     namespace: fos
 rules:
     - apiGroups: [""]
@@ -22,7 +48,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-    name: read-configmaps
+    name: fos-read-configmaps
     namespace: fos
 subjects:
     - kind: ServiceAccount
@@ -30,7 +56,7 @@ subjects:
       apiGroup: ""
 roleRef:
     kind: ClusterRole
-    name: configmap-reader
+    name: fos-configmap-reader
     apiGroup: ""
 
 ---
@@ -41,7 +67,7 @@ metadata:
     namespace: fos
 rules:
     - apiGroups: [""]
-      resources: ["secrets","services"]
+      resources: ["secrets"]
       verbs: ["get", "watch", "list"]
 
 ---
