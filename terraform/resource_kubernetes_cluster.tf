@@ -114,14 +114,14 @@ resource "azurerm_kubernetes_flux_configuration" "ingress-fos" {
     sync_interval_in_seconds = 60
     depends_on               = ["network-policy"]
   }
-  kustomizations {
-    name                       = "network-policy"
-    recreating_enabled         = true
-    garbage_collection_enabled = true
-    path                       = "./manifests/network-policy"
-    sync_interval_in_seconds = 60
-    depends_on               = ["infrastructure"]
-  }
+  #kustomizations {
+  #  name                       = "network-policy"
+  #  recreating_enabled         = true
+  #  garbage_collection_enabled = true
+  #  path                       = "./manifests/network-policy"
+  #  sync_interval_in_seconds = 60
+  #  depends_on               = ["infrastructure"]
+  #}
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
