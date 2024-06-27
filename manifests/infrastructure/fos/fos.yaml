@@ -65,6 +65,9 @@ spec:
           tty: true
           image: ghcr.io/robinmordasiewicz/devcontainer@sha256:6f3fa52a4597de0f6630be0ad97ec0270209d7318e76b7b1517f8b7852ddc5a3
           workingDir: /home/vscode
+          volumeMounts:
+            - mountPath: /data
+              name: data-volume
           resources:
             requests:
               cpu: 1m
