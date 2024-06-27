@@ -112,7 +112,7 @@ resource "azurerm_kubernetes_flux_configuration" "ingress-fos" {
     path                       = "./manifests/apps/staging"
     #path                       = "./apps/staging"
     sync_interval_in_seconds = 60
-    depends_on               = ["network-policy"]
+    depends_on               = ["infrastructure"]
   }
   #kustomizations {
   #  name                       = "network-policy"
