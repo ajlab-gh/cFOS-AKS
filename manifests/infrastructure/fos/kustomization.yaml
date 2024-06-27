@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
 - fos-configmap.yaml
 - fos-license.yaml
-- fos-vip.yaml
 - fos.yaml
 - headlessservice.yaml
 - namespace.yaml
