@@ -57,7 +57,7 @@ spec:
           image: alpine:latest
           command: ['sh', '-c', 'echo "logging" > /opt/logs.txt']
           volumeMounts:
-            - name: data
+            - name: data-volume
               mountPath: /opt
       volumes:
         - name: data-volume
