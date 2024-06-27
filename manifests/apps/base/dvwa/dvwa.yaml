@@ -32,10 +32,10 @@ spec:
           ports:
             - containerPort: 80
               name: http
-                  lifecycle:
-          postStart:
-            exec:
-              command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
 ---
 apiVersion: v1
 kind: Service
