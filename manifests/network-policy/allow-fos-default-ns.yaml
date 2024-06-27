@@ -11,6 +11,9 @@ spec:
     - Egress
   ingress:
     - from:
+        - podSelector: {}
+        - ipBlock:
+            cidr: 0.0.0.0/0
         - namespaceSelector:
             matchLabels:
               name: fos
@@ -19,6 +22,9 @@ spec:
               name: default
   egress:
     - to:
+        - podSelector: {}
+        - ipBlock:
+            cidr: 0.0.0.0/0
         - namespaceSelector:
             matchLabels:
               name: fos
