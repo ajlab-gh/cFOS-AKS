@@ -26,6 +26,3 @@ spec:
         - namespaceSelector:
             matchLabels:
               name: default
-        - namespaceSelector:
-            matchLabels:
-              name: fos
