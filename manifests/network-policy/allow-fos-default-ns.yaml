@@ -12,6 +12,6 @@ spec:
     - to:
         - ipBlock:
             cidr: 0.0.0.0/0
-        - namespaceSelector:
+          namespaceSelector:
             matchLabels:
               name: default
