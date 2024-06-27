@@ -45,7 +45,7 @@ spec:
           securityContext:
             allowPrivilegeEscalation: true
             capabilities:
-                add: ["NET_ADMIN", "SYS_ADMIN", "NET_RAW"]
+              add: ["NET_ADMIN", "SYS_ADMIN", "NET_RAW"]
           resources:
             requests:
               cpu: 4m
@@ -53,6 +53,12 @@ spec:
             limits:
               cpu: 8000m
               memory: 4096Mi
+        - name: myapp
+          image: alpine:latest
+          command: ['sh', '-c', 'echo "logging" > /opt/logs.txt']
+          volumeMounts:
+            - name: data
+              mountPath: /opt
       volumes:
         - name: data-volume
           emptyDir: {}
@@ -64,8 +70,8 @@ metadata:
   namespace: fos
 spec:
   ports:
-  - port: 8001
-    targetPort: 8001
+    - port: 8001
+      targetPort: 8001
   selector:
     app: fos
   type: ClusterIP
