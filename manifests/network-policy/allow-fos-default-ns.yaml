@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-all-dvwa-ns
+  name: allow-fos-default-ns
   namespace: default
 spec:
   podSelector: {}
@@ -14,8 +14,14 @@ spec:
         - namespaceSelector:
             matchLabels:
               name: fos
+        - namespaceSelector:
+            matchLabels:
+              name: default
   egress:
     - to:
         - namespaceSelector:
             matchLabels:
               name: fos
+        - namespaceSelector:
+            matchLabels:
+              name: default

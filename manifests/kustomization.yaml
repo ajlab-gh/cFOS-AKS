@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - ./infrastructure
   - ./apps/staging
+  - ./network-policy

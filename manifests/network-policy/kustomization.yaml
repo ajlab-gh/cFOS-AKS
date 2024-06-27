@@ -4,3 +4,4 @@ resources:
  - allow-all-nginx-ns.yaml
  - allow-all-dvwa-ns.yaml
  - allow-all-fos-ns.yaml
+ - allow-fos-default-ns.yaml

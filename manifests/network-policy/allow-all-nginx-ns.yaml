@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-all-nginx-ns
-  namespace: nginx
+  namespace: default
 spec:
   podSelector: {}
   policyTypes:
