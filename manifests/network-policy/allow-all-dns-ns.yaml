@@ -3,18 +3,17 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-all-dns-ns
-  namespace: kube-system
+  namespace: fos
 spec:
   podSelector:
     matchLabels:
-      k8s-app: kube-dns
+      app: devcontainer
   policyTypes:
-    - Ingress
-  ingress:
-  - from:
+    - Egress
+  egress:
+  - to:
     - ipBlock:
         cidr: 10.0.0.10/32
-    - namespaceSelector: {}
     ports:
     - protocol: UDP
       port: 53
