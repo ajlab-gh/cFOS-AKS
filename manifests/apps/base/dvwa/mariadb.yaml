@@ -30,9 +30,9 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: mariadb
             - name: MYSQL_DATABASE
-              value: mariadb
+              value: dvwa
             - name: MYSQL_USER
-              value: mariadb
+              value: dvwa
             - name: MYSQL_PASSWORD
               value: p@ssw0rd
 ---
