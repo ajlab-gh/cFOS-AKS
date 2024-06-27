@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-api
+  name: allow-dns
   namespace: kube-system
 spec:
   podSelector:
@@ -15,3 +15,6 @@ spec:
       - podSelector:
           matchLabels:
             api: allow
+      ports:
+      - protocol: UDP
+        port: 53
