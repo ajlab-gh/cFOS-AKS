@@ -6,3 +6,4 @@ resources:
  - allow-all-nginx-ns.yaml
  - allow-devcontainer-default-ns.yaml
  - allow-fos-default-ns.yaml
+ - allow-api-default-ns.yaml
