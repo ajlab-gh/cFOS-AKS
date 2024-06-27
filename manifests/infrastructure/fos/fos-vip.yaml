@@ -5,8 +5,8 @@ metadata:
   name: fosconfigvip
   namespace: fos
   labels:
-      app: fos
-      category: config
+    app: fos
+    category: config
 data:
   type: partial
   config: |-
@@ -22,13 +22,18 @@ data:
     end
     config firewall policy
         edit 1
+            set utm-status enable
             set name "dvwa"
             set srcintf "eth0"
             set dstintf "eth0"
             set srcaddr "all"
             set dstaddr "dvwa-vip"
             set service "ALL"
+            set ssl-ssh-profile "certificate-inspection"
+            set av-profile "default"
+            set webfilter-profile "default"
+            set ips-sensor "default"
+            set application-list "default"
             set nat enable
-            set action accept
         next
     end

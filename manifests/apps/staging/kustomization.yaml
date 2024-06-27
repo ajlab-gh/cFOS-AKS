@@ -6,4 +6,4 @@ resources:
   - ../base/devcontainer
   - ../base/ollama
 patchesStrategicMerge:
-  - podinfo-values.yaml
+  - podinfo-values.y
