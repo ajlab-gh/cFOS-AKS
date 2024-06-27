@@ -5,10 +5,13 @@ metadata:
   name: allow-fos-default-ns
   namespace: fos
 spec:
-  podSelector: {}
-  policyTypes:
-  - Egress
   egress:
   - to:
     - ipBlock:
         cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 443
+  podSelector: {}
+  policyTypes:
+  - Egress
