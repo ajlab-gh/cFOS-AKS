@@ -5,7 +5,9 @@ metadata:
   name: allow-all-dns-ns
   namespace: kube-system
 spec:
-  podSelector: {}
+  - podSelector:
+      matchLabels:
+        k8s-app: kube-dns
   policyTypes:
     - Ingress
   ingress:
@@ -13,9 +15,6 @@ spec:
     - ipBlock:
         cidr: 10.0.0.10/32
     - namespaceSelector: {}
-    - podSelector:
-        matchLabels:
-          k8s-app: kube-dns
     ports:
     - protocol: UDP
       port: 53
