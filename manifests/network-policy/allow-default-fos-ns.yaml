@@ -2,17 +2,17 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-fos-default-ns
+  name: allow-default-fos-ns
   namespace: fos
 spec:
   podSelector: {}
   policyTypes:
-    - Egress
-  egress:
-    - to:
+    - Ingress
+  ingress:
+    - from:
         - podSelector: {}
         - ipBlock:
-            cidr: 10.0.0.1/32
+            cidr: 0.0.0.0/0
         - namespaceSelector:
             matchLabels:
-              name: default
+              name: fos
