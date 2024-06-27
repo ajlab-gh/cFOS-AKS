@@ -22,7 +22,7 @@ spec:
   egress:
     - to:
         - ipBlock:
-            cidr: 0.0.0.0/0
+            cidr: 10.0.0.1/32
         - namespaceSelector:
             matchLabels:
               name: default
