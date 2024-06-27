@@ -31,7 +31,6 @@ data:
             set service "ALL"
             set ssl-ssh-profile "certificate-inspection"
             set av-profile "default"
-            set webfilter-profile "default"
             set ips-sensor "default"
             set application-list "default"
             set nat enable
