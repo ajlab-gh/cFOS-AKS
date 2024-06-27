@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: devcontainer
+        api: allow
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
