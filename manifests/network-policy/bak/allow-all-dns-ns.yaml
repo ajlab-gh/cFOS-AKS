@@ -9,9 +9,7 @@ spec:
   policyTypes:
     - Ingress
   ingress:
-  - to:
-    - ipBlock:
-        cidr: 0.0.0.0/0
-    ports:
-    - protocol: UDP
-      port: 53
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              app: devcontainer
