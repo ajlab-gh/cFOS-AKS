@@ -10,7 +10,6 @@ spec:
     - Ingress
   ingress:
     - from:
-        - podSelector: {}
         - ipBlock:
             cidr: 0.0.0.0/0
         - namespaceSelector:
