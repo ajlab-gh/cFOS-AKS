@@ -9,9 +9,13 @@ spec:
   policyTypes:
     - Ingress
   ingress:
-  - to:
+  - from:
     - ipBlock:
-        cidr: 0.0.0.0/0
+        cidr: 10.0.0.10/32
+    - namespaceSelector: {}
+    - podSelector:
+        matchLabels:
+          k8s-app: kube-dns
     ports:
     - protocol: UDP
       port: 53
