@@ -5,9 +5,7 @@ metadata:
   name: allow-fos-api-ns
   namespace: fos
 spec:
-  podSelector:
-    matchLabels:
-      app: fos
+  podSelector: {}
   policyTypes:
     - Egress
   egress:
