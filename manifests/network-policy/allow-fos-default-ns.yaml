@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-default-fos-ns
+  name: allow-fos-default-ns
   namespace: fos
 spec:
   podSelector: {}
