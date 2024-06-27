@@ -5,9 +5,9 @@ metadata:
   name: allow-all-dns-ns
   namespace: kube-system
 spec:
-  - podSelector:
-      matchLabels:
-        k8s-app: kube-dns
+  podSelector:
+    matchLabels:
+      k8s-app: kube-dns
   policyTypes:
     - Ingress
   ingress:
