@@ -41,7 +41,7 @@ metadata:
     namespace: fos
 rules:
     - apiGroups: [""]
-      resources: ["configmaps"]
+      resources: ["configmaps", "services"]
       verbs: ["get", "watch", "list"]
 
 ---
