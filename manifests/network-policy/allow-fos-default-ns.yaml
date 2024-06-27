@@ -12,6 +12,8 @@ spec:
     ports:
     - protocol: TCP
       port: 443
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      app: fos
   policyTypes:
   - Egress
