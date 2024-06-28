@@ -61,18 +61,18 @@ roleRef:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: configmap-manager
+  name: config-manager
   namespace: fos
 rules:
   - apiGroups: [""]
-    resources: ["configmaps"]
+    resources: ["configmaps", "deployments"]
     verbs: ["create", "get", "list", "watch", "update", "delete"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: configmap-manager-binding
+  name: config-manager-binding
   namespace: fos
 subjects:
   - kind: ServiceAccount
@@ -80,5 +80,5 @@ subjects:
     namespace: fos
 roleRef:
   kind: Role
-  name: configmap-manager
+  name: config-manager
   apiGroup: rbac.authorization.k8s.io
