@@ -82,7 +82,7 @@ spec:
           emptyDir: {}
         - name: sidecar-volume
           configMap:
-            name: sidecar-configmap
+            name: sidecar
             defaultMode: 0755
 ---
 apiVersion: v1
