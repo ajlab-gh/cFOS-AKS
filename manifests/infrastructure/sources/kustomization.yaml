@@ -3,4 +3,3 @@ kind: Kustomization
 namespace: cluster-config
 resources:
   - bitnami.yaml
-  - podinfo.yaml
