@@ -19,4 +19,7 @@ data:
       namespace: fos
     $YAMLDATA
     EOF
-    kubectl apply -f manifest.yaml
+    OUTPUT=$(kubectl apply -f manifest.yaml)  
+    if echo "$OUTPUT" | grep -qE 'configured|created|deleted'; then
+      kubectl rollout restart deployment/fos -n fos
+    fi
