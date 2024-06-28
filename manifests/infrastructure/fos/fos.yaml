@@ -15,6 +15,7 @@ spec:
     metadata:
       annotations:
         container.apparmor.security.beta.kubernetes.io/fos: unconfined
+        configHash: ""
       labels:
         app: fos
         api: allow
@@ -36,7 +37,14 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: data-volume
+          envFrom:
+            - configMapRef:
+                name: demo-config
           env:
+            - name: CONFIG_HASH
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.template.metadata.annotations.configHash
             - name: fos-license
               valueFrom:
                 configMapKeyRef:
