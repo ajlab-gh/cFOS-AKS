@@ -4,3 +4,4 @@ resources:
   - dvwa.yaml
   - mariadb.yaml
   - namespace.yaml
+  - rbac.yaml
