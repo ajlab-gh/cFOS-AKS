@@ -7,7 +7,7 @@ data:
   sidecar.sh: |
     #!/bin/bash
     IPADDRESS=$(kubectl -n dvwa get svc dvwa -o json | jq -r ".spec.clusterIP")
-    JSONDATA=$(kubectl -n fos get configmaps fosconfigvip-template -o json | jq '{data,apiVersion,kind}')
+    JSONDATA=$(kubectl -n fos get configmaps fos-vip-template -o json | jq '{data,apiVersion,kind}')
     YAMLDATA=$(echo $JSONDATA | yq -P | sed -e s/VAR_DVWA_CLUSTER_IP/${IPADDRESS}/g)
     cat <<EOF > manifest.yaml
     ---
