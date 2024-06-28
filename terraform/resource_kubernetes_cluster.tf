@@ -41,6 +41,8 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     name                        = each.value.default_node_pool.name
     node_count                  = each.value.default_node_pool.node_count
     vm_size                     = each.value.default_node_pool.vm_size
+    os_disk_type                = "Ephemeral"
+    os_disk_size_gb             = "256"
   }
   network_profile {
     network_plugin    = "azure"
