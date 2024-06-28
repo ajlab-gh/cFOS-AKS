@@ -1,0 +1,39 @@
+---
+metadata:
+  labels:
+    app: fos
+    category: config
+  name: dvwa-vip
+  namespace: fos
+data:
+  config: |-
+    config firewall vip
+     edit "dvwa-vip"
+     set extip "fostest-headless"
+     set mappedip 10.0.113.235
+     set extintf "eth0"
+     set portforward enable
+     set extport "8001"
+     set mappedport "80"
+     next
+    end
+    config firewall policy
+     edit 1
+     set utm-status enable
+     set name "dvwa"
+     set srcintf "eth0"
+     set dstintf "eth0"
+     set srcaddr "all"
+     set dstaddr "dvwa-vip"
+     set service "ALL"
+     set ssl-ssh-profile "certificate-inspection"
+     set av-profile "default"
+     set webfilter-profile "default"
+     set ips-sensor "default"
+     set application-list "default"
+     set nat enable
+     next
+    end
+  type: partial
+apiVersion: v1
+kind: ConfigMap

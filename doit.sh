@@ -1,21 +1,21 @@
 #!/bin/bash
 #
-cfos_license_input_file="CFOSVLTM24000026.lic"
-[[ -f $cfos_license_input_file ]] || echo $cfos_license_input_file does not exist
-file="manifests/base/store-firewall-license.yaml"
-licensestring=$(sed '1d;$d' $cfos_license_input_file | tr -d '\n')
-cat <<EOF >$file
+
+IPADDRESS=$(kubectl -n dvwa get svc dvwa -o json | jq -r ".spec.clusterIP")
+
+JSONDATA=$(kubectl -n fos get configmaps fosconfigvip-template -o json | jq '{data,apiVersion,kind}')
+
+#echo $JSONDATA | yq -P | sed -e "VAR_DVWA_CLUSTER_IP,${IPADDRESS},g"
+YAMLDATA=$(echo $JSONDATA | yq -P | sed -e s/VAR_DVWA_CLUSTER_IP/${IPADDRESS}/g)
+
+cat <<EOF > manifest.yaml
 ---
-apiVersion: v1
-kind: ConfigMap
 metadata:
-    name: cfos-license
-    labels:
-        app: cfos
-        category: license
-data:
-    license: |
-        -----BEGIN CFOS LICENSE-----
-        $licensestring
-        -----END CMS-----
+  labels:
+    app: fos
+    category: config
+  name: dvwa-vip
+  namespace: fos
+$YAMLDATA
 EOF
+kubectl apply -f manifest.yaml
