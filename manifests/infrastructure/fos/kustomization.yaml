@@ -5,7 +5,7 @@ resources:
 - fos-rbac.yaml
 - fos-license.yaml
 - fos.yaml
-- fos-vip.yaml
+- fos-vip-template.yaml
 - headlessservice.yaml
 - namespace.yaml
 - sidecar.yaml
