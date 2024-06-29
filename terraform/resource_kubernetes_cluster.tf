@@ -83,9 +83,9 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   }
 }
 
-resource "azurerm_kubernetes_flux_configuration" "fos-dev" {
+resource "azurerm_kubernetes_flux_configuration" "fos-aks" {
   for_each   = local.kubernetes_clusters
-  name       = "fos-dev"
+  name       = "fos-aks"
   cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace  = "cluster-config"
   #namespace                         = "flux-system"
