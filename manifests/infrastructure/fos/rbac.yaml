@@ -52,6 +52,7 @@ subjects:
     - kind: ServiceAccount
       name: default
       apiGroup: ""
+      namespace: fos
 roleRef:
     kind: ClusterRole
     name: secrets-reader
@@ -77,8 +78,9 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: default
+    apiGroup: ""
     namespace: fos
 roleRef:
-  kind: Role
+  kind: ClusterRole
   name: config-manager
-  apiGroup: rbac.authorization.k8s.io
+  apiGroup: ""
