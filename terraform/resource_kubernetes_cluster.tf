@@ -100,22 +100,22 @@ resource "azurerm_kubernetes_flux_configuration" "ingress-fos" {
     sync_interval_in_seconds = 60
   }
   kustomizations {
-    name                       = "infrastructure"
+    name                       = "manifests"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/infrastructure"
+    path                       = "./manifests"
     #path                       = "./infrastructure"
     sync_interval_in_seconds = 60
   }
-  kustomizations {
-    name                       = "apps"
-    recreating_enabled         = true
-    garbage_collection_enabled = true
-    path                       = "./manifests/apps/staging"
-    #path                       = "./apps/staging"
-    sync_interval_in_seconds = 60
-    depends_on               = ["infrastructure"]
-  }
+  #kustomizations {
+  #  name                       = "apps"
+  #  recreating_enabled         = true
+  #  garbage_collection_enabled = true
+  #  path                       = "./manifests/apps/staging"
+  #  #path                       = "./apps/staging"
+  #  sync_interval_in_seconds = 60
+  #  depends_on               = ["infrastructure"]
+  #}
   #kustomizations {
   #  name                       = "network-policy"
   #  recreating_enabled         = true
