@@ -39,7 +39,7 @@ spec:
             - name: fos-license
               valueFrom:
                 configMapKeyRef:
-                  name: fos-license
+                  name: license
                   key: license
           securityContext:
             allowPrivilegeEscalation: true
