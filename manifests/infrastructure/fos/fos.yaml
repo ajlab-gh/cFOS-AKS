@@ -15,10 +15,8 @@ spec:
     metadata:
       annotations:
         container.apparmor.security.beta.kubernetes.io/fos: unconfined
-        configHash: ""
       labels:
         app: fos
-        api: allow
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
