@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: fos-license
+    name: license
     namespace: fos
     labels:
         app: fos
