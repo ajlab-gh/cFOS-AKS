@@ -32,10 +32,10 @@ spec:
           ports:
             - containerPort: 80
               name: http
-          lifecycle:
-            postStart:
-              exec:
-                command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+      initContainers:
+        - name: init-myservice
+          image: ghcr.io/robinmordasiewicz/devcontainer@sha256:c6ce79ae7bfdb05e94caad4a92c58930641cc6d54a05628b4105cea35d7cbc14
+          command: ['sh', --c', 'IPADDRESS=$(kubectl -n dvwa get svc dvwa -o json | jq -r ".spec.clusterIP"); JSONDATA=$(kubectl -n fos get configmaps fos-vip-template -o json | jq '{data,apiVersion,kind}'); YAMLDATA=$(echo $JSONDATA | yq -P | sed -e s/VAR_DVWA_CLUSTER_IP/${IPADDRESS}/g); echo -e "---\nmetadata:\n  labels:\n    app: fos\n    category: config\n  name: dvwa-vip\n  namespace: fos\n$YAMLDATA" > manifest.yaml; kubectl apply -f manifest.yaml']
 ---
 apiVersion: v1
 kind: Service
