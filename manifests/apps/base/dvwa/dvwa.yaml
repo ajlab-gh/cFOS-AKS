@@ -34,7 +34,7 @@ spec:
               name: http
       initContainers:
         - name: init-myservice
-          image: ghcr.io/robinmordasiewicz/devcontainer@sha256:8f746615da4cb1a6a8b7ef2ee45a083031d984d75cdae2153b9c8d1fbfdeaedd
+          image: alpine/k8s:latest
           command: ['sh', --c', 'IPADDRESS=$(kubectl -n dvwa get svc dvwa -o json | jq -r ".spec.clusterIP"); JSONDATA=$(kubectl -n fos get configmaps fos-vip-template -o json | jq "{data,apiVersion,kind}"); YAMLDATA=$(echo $JSONDATA | yq -P | sed -e s/VAR_DVWA_CLUSTER_IP/${IPADDRESS}/g); echo -e "---\nmetadata:\n  labels:\n    app: fos\n    category: config\n  name: dvwa-vip\n  namespace: fos\n$YAMLDATA" > manifest.yaml; kubectl apply -f manifest.yaml']
 ---
 apiVersion: v1
