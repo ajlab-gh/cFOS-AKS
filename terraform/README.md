@@ -7,6 +7,10 @@ https://github.com/Azure/gitops-flux2-kustomize-helm-mt
 https://github.com/fluxcd/flux2-kustomize-helm-example
 
 ```bash
+kubectl logs --tail=200 -l app=fos -n fos
+```
+
+```bash
 kubectl get events -n flux-system --field-selector type=Warning
 ```
 

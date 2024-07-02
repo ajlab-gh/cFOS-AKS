@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fos
+  name: fos-deployment
   namespace: fos
   labels:
     app: fos
