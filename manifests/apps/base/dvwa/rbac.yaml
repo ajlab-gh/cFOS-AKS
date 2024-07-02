@@ -18,7 +18,7 @@ subjects:
     - kind: ServiceAccount
       name: default
       apiGroup: ""
-      namespace: fos
+      namespace: dvwa
 roleRef:
     kind: ClusterRole
     name: dvwa-svc-reader
