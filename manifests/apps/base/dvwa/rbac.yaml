@@ -2,17 +2,17 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-    name: config-map-reader
+    name: config-map-manager
 rules:
     - apiGroups: [""]
       resources: ["configmaps"]
-      verbs: ["get"]
+      verbs: ["create", "get", "list", "watch", "update", "delete", "patch"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-    name: config-map-reader
+    name: config-map-manager
     namespace: fos
 subjects:
     - kind: ServiceAccount
@@ -21,7 +21,7 @@ subjects:
       namespace: dvwa
 roleRef:
     kind: ClusterRole
-    name: config-map-reader
+    name: config-map-manager
     apiGroup: ""
 
 ---
