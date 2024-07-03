@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx-internal
   rules:
-  - host: ajlab-dvwa.canadacentral.cloudapp.azure.com
+  - host: www.example.com
     http:
       paths:
       - backend:
