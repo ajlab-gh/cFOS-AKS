@@ -14,8 +14,6 @@ spec:
         kind: HelmRepository
         name: ollama
         namespace: cluster-config
-      valuesFiles:
-        - values.yaml
       version: "0.x"
   interval: 1h0m0s
   install:
