@@ -7,3 +7,4 @@ service:
   type: LoadBalancer
 persistentVolume:
   enabled: true
+  size: 100Gi
