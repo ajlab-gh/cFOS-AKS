@@ -1,0 +1,7 @@
+ollama:
+  models:
+    - deepseek-coder:6.7b-base
+    - llama3:8b
+    - nomic-embed-text
+service:
+  type: LoadBalancer

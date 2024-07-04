@@ -14,13 +14,10 @@ spec:
         kind: HelmRepository
         name: ollama
         namespace: cluster-config
+      valuesFiles:
+        - values.yaml
       version: "0.x"
   interval: 1h0m0s
   install:
     remediation:
       retries: 3
-values:
-  models:
-    - deepseek-coder:6.7b-base
-    - llama3:8b
-    - nomic-embed-text
