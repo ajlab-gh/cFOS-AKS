@@ -21,3 +21,14 @@ spec:
   install:
     remediation:
       retries: 3
+  values:
+    ollama:
+      models:
+        - deepseek-coder:6.7b-base
+        - llama3:8b
+        - nomic-embed-text
+    service:
+      type: LoadBalancer
+    persistentVolume:
+      enabled: true
+      size: 100Gi
