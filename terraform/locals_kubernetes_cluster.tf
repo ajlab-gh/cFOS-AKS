@@ -11,7 +11,7 @@ locals {
         name       = "default"
         node_count = 2
         #vm_size    = "Standard_F16s_v2"
-        vm_size    = "Standard_D16s_v3"
+        vm_size = "Standard_D16s_v3"
       }
 
       identity = {
