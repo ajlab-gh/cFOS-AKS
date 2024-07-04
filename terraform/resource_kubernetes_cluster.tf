@@ -55,6 +55,14 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 }
 
+resource "azurerm_kubernetes_cluster_node_pool" "node-pool" {
+  name                  = "gpu"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster.id
+  vm_size               = "Standard_NC24s_v3"
+  node_count            = 1
+  os_sku = "AzureLinux"
+}
+
 #resource "azurerm_role_assignment" "role_assignment" {
 #  for_each                         = local.role_assignments
 #  principal_id                     = each.value.principal_id
