@@ -30,9 +30,9 @@ az extension update --name aks-preview
 ```bash
 az feature register --namespace Microsoft.ContainerService --name AKS-GitOps
 az feature register --namespace Microsoft.ContainerService --name AutomaticSKUPreview
-az feature register --namespace Microsoft.ContainerService --name AzureServiceMeshPreview
 az feature register --namespace Microsoft.ContainerService --name DisableSSHPreview
 az feature register --namespace Microsoft.ContainerService --name EnableAPIServerVnetIntegrationPreview
+az feature register --namespace Microsoft.ContainerService --name GPUDedicatedVHDPreview
 az feature register --namespace Microsoft.ContainerService --name NetworkObservabilityPreview
 az feature register --namespace Microsoft.ContainerService --name NodeAutoProvisioningPreview
 az feature register --namespace Microsoft.ContainerService --name NRGLockdownPreview
