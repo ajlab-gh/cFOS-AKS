@@ -30,6 +30,7 @@ spec:
         - llama3:8b
         - nomic-embed-text
         - mistral
+        - codestral
     service:
       type: LoadBalancer
     persistentVolume:
