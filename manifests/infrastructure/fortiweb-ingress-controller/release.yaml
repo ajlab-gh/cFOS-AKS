@@ -9,7 +9,7 @@ spec:
   releaseName: fortiweb-ingress-controller
   chart:
     spec:
-      chart: fortiweb-ingress-controller
+      chart: fwb-k8s-ctrl
       sourceRef:
         kind: HelmRepository
         name: fortiweb-ingress-controller
