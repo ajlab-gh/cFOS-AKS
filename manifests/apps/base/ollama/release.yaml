@@ -17,8 +17,11 @@ spec:
       version: "0.x"
   interval: 10m0s
   install:
+    timeout: 20m
     remediation:
       retries: 5
+  upgrade:
+    timeout: 20m
   values:
     nodeSelector:
       agentpool: "gpu"
