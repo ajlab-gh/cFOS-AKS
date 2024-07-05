@@ -15,10 +15,10 @@ spec:
         name: ollama
         namespace: cluster-config
       version: "0.x"
-  interval: 1h0m0s
+  interval: 10m0s
   install:
     remediation:
-      retries: 3
+      retries: 5
   values:
     nodeSelector:
       agentpool: "gpu"

@@ -5,3 +5,4 @@ resources:
   - sources
   - nginx-ingress-controller
   - fos
+  - fortiweb-ingress-controller
