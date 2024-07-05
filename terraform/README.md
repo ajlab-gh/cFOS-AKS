@@ -22,9 +22,11 @@ kubectl -n store-dev exec --stdin --tty store-firewall-757b68495f-nkcwl -- /bin/
 az extension add -n k8s-configuration
 az extension add -n k8s-extension
 az extension add -n aks-preview
+az extension add -n connectedk8s
 az extension update -n k8s-configuration
 az extension update -n k8s-extension
-az extension update --name aks-preview
+az extension update -n aks-preview
+az extension update -n connectedk8s
 ```
 
 ```bash
