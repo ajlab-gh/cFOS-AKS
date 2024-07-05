@@ -43,6 +43,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     vm_size                     = each.value.default_node_pool.vm_size
     os_disk_type                = "Ephemeral"
     os_disk_size_gb             = "256"
+    upgrade_settings {
+      max_surge = "10%"
+    }
   }
   network_profile {
     network_plugin    = "azure"
@@ -64,14 +67,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "node-pool" {
   os_sku                = "AzureLinux"
 }
 
-#resource "azurerm_role_assignment" "role_assignment" {
-#  for_each                         = local.role_assignments
-#  principal_id                     = each.value.principal_id
-#  role_definition_name             = each.value.role_definition_name
-#  scope                            = each.value.scope
-#  skip_service_principal_aad_check = each.value.skip_service_principal_aad_check
-#}
-
 output "kube_config" {
   description = "Virtual Network Name"
   value       = [for cluster in azurerm_kubernetes_cluster.kubernetes_cluster : cluster.kube_config_raw]
@@ -87,7 +82,8 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   configuration_settings = {
     "image-automation-controller.enabled" = true,
     "image-reflector-controller.enabled"  = true,
-    "helm-controller.detectDrift"         = true
+    "helm-controller.detectDrift"         = true,
+    "notification-controller.enabled"     = true
   }
 }
 
