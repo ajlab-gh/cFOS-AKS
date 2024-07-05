@@ -7,3 +7,4 @@ git add . && git commit -m "fix: update the fqdn" &&  git switch -C robin "dev" 
 kubectl -n fos get configmaps fosconfigvip-template -o json | jq -r ".data.config"
 kubectl -n dvwa get svc dvwa -o json | jq -r ".spec.clusterIP"
 ```
+
