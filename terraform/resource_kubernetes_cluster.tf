@@ -92,18 +92,15 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
 }
 
 resource "azurerm_kubernetes_flux_configuration" "fos-aks" {
-  for_each   = local.kubernetes_clusters
-  name       = "fos-aks"
-  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace  = "cluster-config"
-  #namespace                         = "flux-system"
+  for_each                          = local.kubernetes_clusters
+  name                              = "fos-aks"
+  cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace                         = "cluster-config"
   scope                             = "cluster"
   continuous_reconciliation_enabled = true
   git_repository {
-    url = "https://github.com/AJLab-GH/cFOS-AKS"
-    #url                      = "https://github.com/Azure/gitops-flux2-kustomize-helm-mt"
-    reference_type = "branch"
-    #reference_value          = "main"
+    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type           = "branch"
     reference_value          = "dev"
     sync_interval_in_seconds = 60
   }
@@ -112,26 +109,8 @@ resource "azurerm_kubernetes_flux_configuration" "fos-aks" {
     recreating_enabled         = true
     garbage_collection_enabled = true
     path                       = "./manifests"
-    #path                       = "./infrastructure"
-    sync_interval_in_seconds = 60
+    sync_interval_in_seconds   = 60
   }
-  #kustomizations {
-  #  name                       = "apps"
-  #  recreating_enabled         = true
-  #  garbage_collection_enabled = true
-  #  path                       = "./manifests/apps/staging"
-  #  #path                       = "./apps/staging"
-  #  sync_interval_in_seconds = 60
-  #  depends_on               = ["infrastructure"]
-  #}
-  #kustomizations {
-  #  name                       = "network-policy"
-  #  recreating_enabled         = true
-  #  garbage_collection_enabled = true
-  #  path                       = "./manifests/network-policy"
-  #  sync_interval_in_seconds = 60
-  #  depends_on               = ["infrastructure"]
-  #}
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
   ]
