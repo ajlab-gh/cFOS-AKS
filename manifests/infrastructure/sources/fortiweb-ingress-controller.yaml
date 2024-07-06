@@ -5,4 +5,5 @@ metadata:
   name: fortiweb-ingress-controller
 spec:
   interval: 30m
-  url: https://fortiweb-fortiadc.github.io/fortiweb-ingress/
+  url: https://fortinet.github.io/fortiweb-ingress/ 
+  # url: https://fortiweb-fortiadc.github.io/fortiweb-ingress/
