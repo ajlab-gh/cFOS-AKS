@@ -1,7 +1,6 @@
----
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: fos
+  name: ollama
   labels:
-    name: fos
+    name: ollama

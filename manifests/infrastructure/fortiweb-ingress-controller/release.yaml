@@ -1,23 +1,21 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: redis
+  name: fortiweb-ingress-controller
   namespace: cluster-config
 spec:
-  targetNamespace: redis
-  releaseName: redis
+  targetNamespace: fortiweb-ingress-controller
+  releaseName: fortiweb-ingress-controller
   chart:
     spec:
-      chart: redis
+      chart: fwb-k8s-ctrl
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: fortiweb-ingress-controller
         namespace: cluster-config
-      version: "17.x"
-  interval: 1h0m0s
+      version: "1.0.x"
+  interval: 10m0s
   install:
     remediation:
       retries: 3
-  valuesFrom:
-    - kind: ConfigMap
-      name: redis-values

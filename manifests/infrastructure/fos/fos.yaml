@@ -2,8 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fos
+  name: fos-deployment
   namespace: fos
+  labels:
+    app: fos
 spec:
   replicas: 1
   selector:
@@ -37,12 +39,12 @@ spec:
             - name: fos-license
               valueFrom:
                 configMapKeyRef:
-                  name: fos-license
+                  name: license
                   key: license
           securityContext:
             allowPrivilegeEscalation: true
             capabilities:
-                add: ["NET_ADMIN", "SYS_ADMIN", "NET_RAW"]
+              add: ["NET_ADMIN", "SYS_ADMIN", "NET_RAW"]
           resources:
             requests:
               cpu: 4m
@@ -52,9 +54,7 @@ spec:
               memory: 4096Mi
       volumes:
         - name: data-volume
-          hostPath:
-            path: /fosdata
-            type: DirectoryOrCreate
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -63,8 +63,8 @@ metadata:
   namespace: fos
 spec:
   ports:
-  - port: 8001
-    targetPort: 8001
+    - port: 8001
+      targetPort: 8001
   selector:
     app: fos
   type: ClusterIP

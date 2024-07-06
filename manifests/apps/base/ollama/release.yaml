@@ -1,0 +1,41 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ollama
+  namespace: cluster-config
+spec:
+  targetNamespace: ollama
+  releaseName: ollama
+  chart:
+    spec:
+      chart: ollama
+      sourceRef:
+        kind: HelmRepository
+        name: ollama
+        namespace: cluster-config
+      version: "0.x"
+  interval: 10m0s
+  install:
+    timeout: 20m
+    remediation:
+      retries: 5
+  upgrade:
+    timeout: 20m
+  values:
+    nodeSelector:
+      agentpool: "gpu"
+    gpu:
+      enabled: true
+    ollama:
+      models:
+        - deepseek-coder:6.7b-base
+        - llama3:8b
+        - nomic-embed-text
+        - mistral
+        - codestral
+    service:
+      type: LoadBalancer
+    persistentVolume:
+      enabled: true
+      size: 100Gi

@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nginx-ingress-controller
+  labels:
+    name: nginx-ingress-controller

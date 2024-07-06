@@ -1,10 +1,11 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: nginx
+  name: nginx-ingress-controller
   namespace: cluster-config
 spec:
-  targetNamespace: nginx
+  targetNamespace: nginx-ingress-controller
   releaseName: nginx-ingress-controller
   chart:
     spec:
@@ -14,15 +15,16 @@ spec:
         name: bitnami
         namespace: cluster-config
       version: "11.x"
-  interval: 1h0m0s
+  interval: 10m0s
   install:
     remediation:
       retries: 3
-  # Default values
-  # https://github.com/bitnami/charts/blob/master/bitnami/nginx-ingress-controller/values.yaml
   values:
     service:
       type: LoadBalancer
     ingressClassResource:
       name: nginx
-    resourcesPreset: nano
+    resourcesPreset: small
+    metadata:
+      labels:
+        app: nginx

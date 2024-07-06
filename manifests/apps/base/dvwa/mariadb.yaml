@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mariadb
-  namespace: fos
+  namespace: dvwa
 spec:
   replicas: 1
   selector:
@@ -30,9 +30,9 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: mariadb
             - name: MYSQL_DATABASE
-              value: mariadb
+              value: dvwa
             - name: MYSQL_USER
-              value: mariadb
+              value: dvwa
             - name: MYSQL_PASSWORD
               value: p@ssw0rd
 ---
@@ -40,7 +40,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mariadb
-  namespace: fos
+  namespace: dvwa
 spec:
   ports:
   - port: 3306

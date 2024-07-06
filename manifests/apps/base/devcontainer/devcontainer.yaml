@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: devcontainer
-  namespace: nginx
+  namespace: fos
 spec:
   replicas: 1
   selector:
@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: devcontainer
+        api: allow
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
@@ -27,7 +28,7 @@ spec:
             - "604800"
           stdin: true
           tty: true
-          image: ghcr.io/robinmordasiewicz/devcontainer@sha256:6f3fa52a4597de0f6630be0ad97ec0270209d7318e76b7b1517f8b7852ddc5a3
+          image: ghcr.io/robinmordasiewicz/devcontainer@sha256:8f746615da4cb1a6a8b7ef2ee45a083031d984d75cdae2153b9c8d1fbfdeaedd
           workingDir: /home/vscode
           resources:
             requests:

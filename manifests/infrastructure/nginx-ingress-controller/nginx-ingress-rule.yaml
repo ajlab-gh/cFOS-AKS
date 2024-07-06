@@ -1,12 +1,13 @@
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx-ingress-to-cfos
+  name: nginx-ingress-to-fos
   namespace: fos
 spec:
   ingressClassName: nginx-internal
   rules:
-  - host: ajlab-dvwa.canadacentral.cloudapp.azure.com
+  - host: www.example.com
     http:
       paths:
       - backend:

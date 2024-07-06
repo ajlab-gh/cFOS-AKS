@@ -10,7 +10,8 @@ locals {
       default_node_pool = {
         name       = "default"
         node_count = 3
-        vm_size    = "Standard_F16s_v2"
+        #vm_size    = "Standard_F16s_v2"
+        vm_size = "Standard_D16s_v3"
       }
 
       identity = {

@@ -1,6 +1,6 @@
 locals {
   resource_group_name = "${var.prefix}-rg"
-  location            = "canadacentral"
+  location            = "eastus"
   environment_tag     = "${var.prefix}-cFOS-Demo"
 
   resource_groups = {

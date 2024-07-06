@@ -41,6 +41,11 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     name                        = each.value.default_node_pool.name
     node_count                  = each.value.default_node_pool.node_count
     vm_size                     = each.value.default_node_pool.vm_size
+    os_disk_type                = "Ephemeral"
+    os_disk_size_gb             = "256"
+    upgrade_settings {
+      max_surge = "10%"
+    }
   }
   network_profile {
     network_plugin    = "azure"
@@ -53,13 +58,14 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 }
 
-#resource "azurerm_role_assignment" "role_assignment" {
-#  for_each                         = local.role_assignments
-#  principal_id                     = each.value.principal_id
-#  role_definition_name             = each.value.role_definition_name
-#  scope                            = each.value.scope
-#  skip_service_principal_aad_check = each.value.skip_service_principal_aad_check
-#}
+resource "azurerm_kubernetes_cluster_node_pool" "node-pool" {
+  for_each              = local.kubernetes_clusters
+  name                  = "gpu"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  vm_size               = "Standard_NC24s_v3"
+  node_count            = 1
+  os_sku                = "AzureLinux"
+}
 
 output "kube_config" {
   description = "Virtual Network Name"
@@ -76,43 +82,30 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   configuration_settings = {
     "image-automation-controller.enabled" = true,
     "image-reflector-controller.enabled"  = true,
-    "notification-controller.enabled"     = true,
-    "helm-controller.detectDrift"         = true
+    "helm-controller.detectDrift"         = true,
+    "notification-controller.enabled"     = true
   }
 }
 
-resource "azurerm_kubernetes_flux_configuration" "ingress-fos" {
-  for_each   = local.kubernetes_clusters
-  name       = "ingress-fos"
-  cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-  namespace  = "cluster-config"
-  #namespace                         = "flux-system"
+resource "azurerm_kubernetes_flux_configuration" "fos-aks" {
+  for_each                          = local.kubernetes_clusters
+  name                              = "fos-aks"
+  cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  namespace                         = "cluster-config"
   scope                             = "cluster"
   continuous_reconciliation_enabled = true
   git_repository {
-    url = "https://github.com/AJLab-GH/cFOS-AKS"
-    #url                      = "https://github.com/Azure/gitops-flux2-kustomize-helm-mt"
-    reference_type = "branch"
-    #reference_value          = "main"
+    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    reference_type           = "branch"
     reference_value          = "dev"
     sync_interval_in_seconds = 60
   }
   kustomizations {
-    name                       = "infrastructure"
+    name                       = "manifests"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests/infrastructure"
-    #path                       = "./infrastructure"
-    sync_interval_in_seconds = 60
-  }
-  kustomizations {
-    name                       = "apps"
-    recreating_enabled         = true
-    garbage_collection_enabled = true
-    path                       = "./manifests/apps/staging"
-    #path                       = "./apps/staging"
-    sync_interval_in_seconds = 60
-    depends_on               = ["infrastructure"]
+    path                       = "./manifests"
+    sync_interval_in_seconds   = 60
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux-extension
