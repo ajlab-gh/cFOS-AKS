@@ -23,7 +23,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   resource_group_name               = each.value.resource_group_name
   dns_prefix                        = "${var.prefix}-aks-${each.key}"
   #kubernetes_version                = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
-  kubernetes_version                = "1.27.0"
+  kubernetes_version                = "1.27.9"
   sku_tier                          = "Standard"
   node_resource_group               = "MC-${each.value.name}"
   role_based_access_control_enabled = true
