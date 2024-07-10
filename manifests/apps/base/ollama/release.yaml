@@ -23,6 +23,8 @@ spec:
   upgrade:
     timeout: 20m
   values:
+    gpu:
+      enabled: true
     nodeSelector:
       agentpool: "gpu"
     ollama:
