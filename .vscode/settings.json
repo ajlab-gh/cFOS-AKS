@@ -1,10 +1,13 @@
 {
-    "cSpell.words": [
-        "agentpool",
-        "codestral",
-        "deepseek",
-        "fluxcd",
-        "nomic",
-        "ollama"
-    ]
+  "cSpell.words": [
+    "agentpool",
+    "codestral",
+    "deepseek",
+    "fluxcd",
+    "fortiweb",
+    "Kustomization",
+    "kustomize",
+    "nomic",
+    "ollama"
+  ]
 }
