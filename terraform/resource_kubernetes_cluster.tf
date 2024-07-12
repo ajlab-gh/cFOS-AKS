@@ -45,6 +45,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     os_disk_type                = "Ephemeral"
     os_disk_size_gb             = "256"
     ultra_ssd_enabled           = true
+    availability_zones   = ["1"]
     os_sku                      = "AzureLinux"
     max_pods                    = "50"
     upgrade_settings {
@@ -71,10 +72,10 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 #  os_sku                = "AzureLinux"
 #}
 
-output "kube_config" {
-  description = "Virtual Network Name"
-  value       = [for cluster in azurerm_kubernetes_cluster.kubernetes_cluster : cluster.kube_config_raw]
-  sensitive   = true
+resource "local_file" "kube-config" {
+  for_each    = local.kubernetes_clusters
+  content     = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].kube_config_raw
+  filename    = "/home/vscode/.kube/${each.value.name}.yaml"
 }
 
 resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
@@ -100,7 +101,7 @@ resource "azurerm_kubernetes_flux_configuration" "fos-aks" {
   scope                             = "cluster"
   continuous_reconciliation_enabled = true
   git_repository {
-    url                      = "https://github.com/AJLab-GH/cFOS-AKS"
+    url                      = var.manifest_url
     reference_type           = "branch"
     reference_value          = "dev"
     sync_interval_in_seconds = 60
