@@ -76,7 +76,7 @@ output "kube_config" {
 
 resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   for_each          = local.kubernetes_clusters
-  depends_on        = [azurerm_kubernetes_cluster_node_pool.node-pool[each.key]]
+  depends_on        = [azurerm_kubernetes_cluster_node_pool.node-pool]
   name              = "flux-extension"
   cluster_id        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   extension_type    = "microsoft.flux"
