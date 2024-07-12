@@ -1,4 +1,4 @@
-## Contributing
+# Contributing
 
 ```bash
 git switch -C feat01 "dev"
