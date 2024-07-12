@@ -6,10 +6,6 @@ variable "virtual_network_cidr" {
   type        = string
   default     = "10.20.0.0/16"
 }
-variable "enable_output" {
-  description = "Enable/Disable output"
-  default     = false
-}
 variable "manifest_url" {
   description = "URL to the Kubernetes manifest file"
   type        = string
