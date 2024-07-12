@@ -44,6 +44,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     vm_size                     = each.value.default_node_pool.vm_size
     os_disk_type                = "Ephemeral"
     os_disk_size_gb             = "256"
+    os_sku                      = "AzureLinux"
     upgrade_settings {
       max_surge = "10%"
     }
