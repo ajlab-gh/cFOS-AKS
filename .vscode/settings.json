@@ -1,13 +1,33 @@
 {
+  "cSpell.enableFiletypes": [
+    "ansible",
+    "arm-template",
+    "bicep",
+    "dockercompose",
+    "dockerfile",
+    "drawio",
+    "github-actions",
+    "github-actions-workflow",
+    "mermaid",
+    "pip-requirements",
+    "shellscript",
+    "terraform",
+    "terraform-deploy",
+    "terraform-vars"
+  ],
   "cSpell.words": [
     "agentpool",
+    "azurerm",
     "codestral",
     "deepseek",
     "fluxcd",
     "fortiweb",
     "Kustomization",
+    "kustomizations",
     "kustomize",
+    "myip",
     "nomic",
+    "oidc",
     "ollama"
   ]
 }

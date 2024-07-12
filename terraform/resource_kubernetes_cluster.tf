@@ -17,11 +17,11 @@ resource "azurerm_log_analytics_workspace" "log-analytics" {
 }
 
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
-  for_each                          = local.kubernetes_clusters
-  name                              = each.value.name
-  location                          = each.value.location
-  resource_group_name               = each.value.resource_group_name
-  dns_prefix                        = "${var.prefix}-aks-${each.key}"
+  for_each            = local.kubernetes_clusters
+  name                = each.value.name
+  location            = each.value.location
+  resource_group_name = each.value.resource_group_name
+  dns_prefix          = "${var.prefix}-aks-${each.key}"
   #kubernetes_version                = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
   kubernetes_version                = "1.27.9"
   sku_tier                          = "Standard"
@@ -76,6 +76,7 @@ output "kube_config" {
 
 resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   for_each          = local.kubernetes_clusters
+  depends_on        = [azurerm_kubernetes_cluster_node_pool.node-pool[each.key]]
   name              = "flux-extension"
   cluster_id        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   extension_type    = "microsoft.flux"
