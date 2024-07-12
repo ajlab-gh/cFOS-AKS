@@ -24,8 +24,6 @@ kubectl apply --kustomize manifests/
 IPADDRESS=$(kubectl get svc -n ollama -o jsonpath='{.items[0].status.loadBalancer.ingress[0].ip}')
 sudo sh -c "echo \"${IPADDRESS} www.bankexample.com\" >> /etc/hosts"
 export OLLAMA_HOST="${IPADDRESS}:11434"
-```
 
-```bash
 ollama list
 ```
