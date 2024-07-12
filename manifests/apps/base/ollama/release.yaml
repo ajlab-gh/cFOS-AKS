@@ -23,6 +23,8 @@ spec:
   upgrade:
     timeout: 20m
   values:
+    image:
+      tag: "latest"
     gpu:
       enabled: true
     ollama:
