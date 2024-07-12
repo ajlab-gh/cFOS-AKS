@@ -1,6 +1,4 @@
-# cFOS-AKS
-
-A demo of Fortinet in a kubernetes environment with AI workload protection.
+# Terraform AKS with Flux
 
 ## Deploy Infrastructure
 
