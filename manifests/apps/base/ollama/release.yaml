@@ -29,11 +29,11 @@ spec:
       agentpool: "gpu"
     ollama:
       models:
-        - deepseek-coder:6.7b-base
-        - llama3:8b
+        - deepseek-coder-v2:16b-lite-base-q6_K
+        - llama3:70b
         - nomic-embed-text
-        - mistral
-        - codestral
+        - mistral:7b-instruct-q8_0
+        - codestral:22b-v0.1-q6_K
     service:
       type: LoadBalancer
     persistentVolume:
