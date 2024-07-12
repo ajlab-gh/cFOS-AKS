@@ -34,6 +34,7 @@ spec:
         - nomic-embed-text
         - mistral:7b-instruct-q8_0
         - codestral:22b-v0.1-q6_K
+        - codestral:latest
     service:
       type: LoadBalancer
     persistentVolume:
