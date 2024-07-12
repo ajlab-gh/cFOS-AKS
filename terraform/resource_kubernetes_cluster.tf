@@ -45,6 +45,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     os_disk_type                = "Ephemeral"
     os_disk_size_gb             = "256"
     os_sku                      = "AzureLinux"
+    max_pods                    = "50"
     upgrade_settings {
       max_surge = "10%"
     }
