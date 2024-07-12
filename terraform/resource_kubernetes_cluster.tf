@@ -17,13 +17,12 @@ resource "azurerm_log_analytics_workspace" "log-analytics" {
 }
 
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
-  for_each            = local.kubernetes_clusters
-  name                = each.value.name
-  location            = each.value.location
-  resource_group_name = each.value.resource_group_name
-  dns_prefix          = "${var.prefix}-aks-${each.key}"
-  #kubernetes_version                = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
-  kubernetes_version                = "1.27.9"
+  for_each                          = local.kubernetes_clusters
+  name                              = each.value.name
+  location                          = each.value.location
+  resource_group_name               = each.value.resource_group_name
+  dns_prefix                        = "${var.prefix}-aks-${each.key}"
+  kubernetes_version                = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
   sku_tier                          = "Standard"
   node_resource_group               = "MC-${each.value.name}"
   role_based_access_control_enabled = true
@@ -71,9 +70,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 #}
 
 resource "local_file" "kube-config" {
-  for_each    = local.kubernetes_clusters
-  content     = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].kube_config_raw
-  filename    = "/home/vscode/.kube/${each.value.name}.yaml"
+  for_each = local.kubernetes_clusters
+  content  = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].kube_config_raw
+  filename = "/home/vscode/.kube/${each.value.name}.yaml"
 }
 
 resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
