@@ -24,7 +24,7 @@ spec:
     timeout: 20m
   values:
     image:
-      tag: "latest"
+      tag: "0.2.2"
     gpu:
       enabled: true
     ollama:
