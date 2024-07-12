@@ -23,10 +23,10 @@ spec:
   upgrade:
     timeout: 20m
   values:
-    nodeSelector:
-      agentpool: "gpu"
     gpu:
       enabled: true
+    nodeSelector:
+      agentpool: "gpu"
     ollama:
       models:
         - deepseek-coder:6.7b-base
