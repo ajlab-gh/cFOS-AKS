@@ -44,6 +44,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     vm_size                     = each.value.default_node_pool.vm_size
     os_disk_type                = "Ephemeral"
     os_disk_size_gb             = "256"
+    ultra_ssd_enabled           = true
     os_sku                      = "AzureLinux"
     max_pods                    = "50"
     upgrade_settings {
