@@ -41,10 +41,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     name                        = each.value.default_node_pool.name
     node_count                  = each.value.default_node_pool.node_count
     vm_size                     = each.value.default_node_pool.vm_size
-    os_disk_type                = "Ephemeral"
-    os_disk_size_gb             = "256"
-    os_sku                      = "AzureLinux"
-    max_pods                    = "50"
+    os_sku = "AzureLinux"
     upgrade_settings {
       max_surge = "10%"
     }
@@ -60,12 +57,22 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 }
 
-resource "local_file" "kube-config" {
-  for_each = local.kubernetes_clusters
-  content  = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].kube_config_raw
-  filename = "/home/vscode/.kube/${each.value.name}.yaml"
-  directory_permission = "0755"
-  file_permission      = "0600"
+resource "azurerm_kubernetes_cluster_node_pool" "node-pool" {
+  for_each              = local.kubernetes_clusters
+  name                  = "gpu"
+  mode                  = "User"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
+  depends_on            = [azurerm_kubernetes_cluster.kubernetes_cluster]
+  vm_size               = "Standard_NC24s_v3"
+  node_count            = 1
+  os_sku                = "AzureLinux"
+  node_labels           = var.user_node_pool_node_labels
+  node_taints           = var.user_node_pool_node_taints
+  os_disk_type          = "Ephemeral"
+  ultra_ssd_enabled     = true
+  os_disk_size_gb       = "256"
+  max_pods              = "50"
+  #zones = var.user_node_pool_availability_zones
 }
 
 resource "azurerm_kubernetes_cluster_extension" "flux_extension" {
@@ -74,6 +81,7 @@ resource "azurerm_kubernetes_cluster_extension" "flux_extension" {
   cluster_id        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   extension_type    = "microsoft.flux"
   release_namespace = "flux-system"
+  depends_on        = [azurerm_kubernetes_cluster_node_pool.node-pool]
   configuration_settings = {
     "image-automation-controller.enabled" = true,
     "image-reflector-controller.enabled"  = true,
@@ -111,4 +119,12 @@ output "kube_config" {
   description = "kube config"
   value       = [for cluster in azurerm_kubernetes_cluster.kubernetes_cluster : cluster.kube_config_raw]
   sensitive   = true
+}
+
+resource "local_file" "kube-config" {
+  for_each             = local.kubernetes_clusters
+  content              = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].kube_config_raw
+  filename             = "/home/vscode/.kube/${each.value.name}.yaml"
+  directory_permission = "0755"
+  file_permission      = "0600"
 }
