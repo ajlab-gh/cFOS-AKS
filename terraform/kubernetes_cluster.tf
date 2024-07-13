@@ -106,3 +106,9 @@ resource "azurerm_kubernetes_flux_configuration" "flux_configuration" {
     azurerm_kubernetes_cluster_extension.flux_extension
   ]
 }
+
+output "kube_config" {
+  description = "kube config"
+  value       = [for cluster in azurerm_kubernetes_cluster.kubernetes_cluster : cluster.kube_config_raw]
+  sensitive   = true
+}
