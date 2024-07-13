@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - release.yaml
   - namespace.yaml
-  - nginx-ingress-rule.yaml
   - ingressclass.yaml
