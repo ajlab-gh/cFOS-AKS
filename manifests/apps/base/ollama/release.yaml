@@ -40,11 +40,11 @@ spec:
         value: "-1"
     ingress:
       enabled:
-        hosts:
-          - host: www.bankexample.com
-            paths:
-              - path: /
-                pathType: Prefix
+      hosts:
+        - host: www.bankexample.com
+          paths:
+            - path: /
+              pathType: Prefix
     persistentVolume:
       enabled: true
       size: 100Gi
