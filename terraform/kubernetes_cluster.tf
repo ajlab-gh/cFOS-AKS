@@ -60,23 +60,13 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 }
 
-#resource "azurerm_kubernetes_cluster_node_pool" "node-pool" {
-#  for_each              = local.kubernetes_clusters
-#  name                  = "gpu"
-#  kubernetes_cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
-#  vm_size               = "Standard_NC24s_v3"
-#  node_count            = 1
-#  os_sku                = "AzureLinux"
-#}
-
 resource "local_file" "kube-config" {
   for_each = local.kubernetes_clusters
   content  = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].kube_config_raw
   filename = "/home/vscode/.kube/${each.value.name}.yaml"
 }
 
-resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
-  # depends_on        = [azurerm_kubernetes_cluster_node_pool.node-pool]
+resource "azurerm_kubernetes_cluster_extension" "flux_extension" {
   for_each          = local.kubernetes_clusters
   name              = "flux-extension"
   cluster_id        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
@@ -90,9 +80,9 @@ resource "azurerm_kubernetes_cluster_extension" "flux-extension" {
   }
 }
 
-resource "azurerm_kubernetes_flux_configuration" "fos-aks" {
+resource "azurerm_kubernetes_flux_configuration" "flux_configuration" {
   for_each                          = local.kubernetes_clusters
-  name                              = "fos-aks"
+  name                              = "flux-configuration"
   cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace                         = "cluster-config"
   scope                             = "cluster"
@@ -111,6 +101,6 @@ resource "azurerm_kubernetes_flux_configuration" "fos-aks" {
     sync_interval_in_seconds   = 60
   }
   depends_on = [
-    azurerm_kubernetes_cluster_extension.flux-extension
+    azurerm_kubernetes_cluster_extension.flux_extension
   ]
 }
