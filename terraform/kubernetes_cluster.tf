@@ -64,6 +64,8 @@ resource "local_file" "kube-config" {
   for_each = local.kubernetes_clusters
   content  = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].kube_config_raw
   filename = "/home/vscode/.kube/${each.value.name}.yaml"
+  directory_permission = "0755"
+  file_permission      = "0600"
 }
 
 resource "azurerm_kubernetes_cluster_extension" "flux_extension" {

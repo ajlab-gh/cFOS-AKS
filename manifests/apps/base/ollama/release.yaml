@@ -35,6 +35,9 @@ spec:
         - mistral:7b-instruct-q8_0
         - codestral:22b-v0.1-q6_K
         - codestral:latest
+    extraEnv:
+      - name: OLLAMA_KEEP_ALIVE
+        value: "-1"
     ingress:
       enabled: true
         hosts:
