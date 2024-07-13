@@ -39,12 +39,12 @@ spec:
       - name: OLLAMA_KEEP_ALIVE
         value: "-1"
     ingress:
-      enabled: true
+      enabled:
         hosts:
-        - host: www.bankexample.com
-          paths:
-            - path: /
-              pathType: Prefix
+          - host: www.bankexample.com
+            paths:
+              - path: /
+                pathType: Prefix
     persistentVolume:
       enabled: true
       size: 100Gi
