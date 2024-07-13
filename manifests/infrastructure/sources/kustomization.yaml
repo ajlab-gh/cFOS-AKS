@@ -5,4 +5,3 @@ namespace: cluster-config
 resources:
   - bitnami.yaml
   - ollama.yaml
-  - fortiweb-ingress-controller.yaml
