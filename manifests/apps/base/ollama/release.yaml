@@ -28,6 +28,8 @@ spec:
     gpu:
       enabled: true
     ollama:
+      gpu:
+        enabled: true
       models:
         - deepseek-coder-v2:16b-lite-base-q6_K
         - llama3:70b
