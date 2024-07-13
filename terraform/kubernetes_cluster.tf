@@ -41,7 +41,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     name                        = each.value.default_node_pool.name
     node_count                  = each.value.default_node_pool.node_count
     vm_size                     = each.value.default_node_pool.vm_size
-    os_sku = "AzureLinux"
+    os_sku                      = "AzureLinux"
     upgrade_settings {
       max_surge = "10%"
     }
@@ -72,7 +72,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "node-pool" {
   ultra_ssd_enabled     = true
   os_disk_size_gb       = "256"
   max_pods              = "50"
-  #zones = var.user_node_pool_availability_zones
+  zones                 = ["1"]
 }
 
 resource "azurerm_kubernetes_cluster_extension" "flux_extension" {
