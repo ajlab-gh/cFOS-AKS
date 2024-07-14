@@ -24,9 +24,10 @@ spec:
     timeout: 20m
   values:
     resources:
-      requests: {}
       limits:
-        nvidia.com/gpu: 0
+        nvidia.com/gpu: "0"
+      requests:
+        nvidia.com/gpu: "0"
     image:
       tag: "0.2.2"
     gpu:
