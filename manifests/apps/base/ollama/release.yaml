@@ -54,7 +54,3 @@ spec:
     persistentVolume:
       enabled: true
       size: 100Gi
-    tolerations:
-      - key: "nvidia.com/gpu"
-        operator: "Exists"
-        effect: "NoSchedule"
