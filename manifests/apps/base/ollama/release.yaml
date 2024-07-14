@@ -23,6 +23,16 @@ spec:
   upgrade:
     timeout: 20m
   values:
+    runtimeClass: nvidia
+    extraEnv:
+      - name: NVIDIA_VISIBLE_DEVICES
+        value: all
+      - name: NVARCH
+        value: x86_64
+      - name: NV_CUDA_CUDART_VERSION
+        value: 12.5
+      - name: NVIDIA_DRIVER_CAPABILITIES
+        value: all
     resources:
       limits:
         nvidia.com/gpu: "0"
@@ -30,8 +40,6 @@ spec:
         nvidia.com/gpu: "0"
     image:
       tag: "latest"
-    gpu:
-      enabled: true
     ollama:
       gpu:
         enabled: true
