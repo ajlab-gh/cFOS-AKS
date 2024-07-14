@@ -23,6 +23,9 @@ spec:
   upgrade:
     timeout: 20m
   values:
+    resources:
+      requests: {}
+      limits: {}
     image:
       tag: "0.2.2"
     gpu:
