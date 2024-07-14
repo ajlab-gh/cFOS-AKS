@@ -63,7 +63,11 @@ resource "azurerm_kubernetes_cluster_node_pool" "node-pool" {
   mode                  = "User"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   depends_on            = [azurerm_kubernetes_cluster.kubernetes_cluster]
-  vm_size               = "Standard_NC24s_v3"
+  #vm_size               = "Standard_NC24s_v3"
+  vm_size                = "Standard_NC6s_v3" #16GB
+  #vm_size               = "Standard_NC4as_T4_v3" # 16GB
+  #vm_size               = "Standard_ND40rs_v2" # 32 GB vlink
+  #vm_size               = "Standard_NC24ads_A100_v4" # 80GB
   node_count            = 1
   os_sku                = "AzureLinux"
   node_taints           = var.user_node_pool_node_taints

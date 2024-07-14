@@ -9,7 +9,7 @@ variable "manifest_url" {
 variable "regions" {
   description = "List of regions"
   type        = list(string)
-  default     = ["eastus"]
+  default     = ["canadacentral"]
 }
 variable "user_node_pool_node_taints" {
   type    = list(string)
