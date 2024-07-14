@@ -8,7 +8,7 @@ data "azurerm_kubernetes_service_versions" "current" {
   include_preview = false
 }
 
-resource "azurerm_log_analytics_workspace" "log-analytics" {
+resource "azurerm_log_analytics_workspace" "log_analytics" {
   for_each            = local.kubernetes_clusters
   name                = each.value.name
   location            = each.value.location
@@ -34,7 +34,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     ]
   }
   oms_agent {
-    log_analytics_workspace_id = azurerm_log_analytics_workspace.log-analytics[each.key].id
+    log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics[each.key].id
   }
   default_node_pool {
     temporary_name_for_rotation = "rotation"
@@ -63,8 +63,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "node-pool" {
   mode                  = "User"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   depends_on            = [azurerm_kubernetes_cluster.kubernetes_cluster]
+  vm_size               = "Standard_NC6s_v3" #16GB
   #vm_size               = "Standard_NC24s_v3"
-  vm_size                = "Standard_NC6s_v3" #16GB
   #vm_size               = "Standard_NC4as_T4_v3" # 16GB
   #vm_size               = "Standard_ND40rs_v2" # 32 GB vlink
   #vm_size               = "Standard_NC24ads_A100_v4" # 80GB
@@ -93,9 +93,9 @@ resource "azurerm_kubernetes_cluster_extension" "flux_extension" {
   }
 }
 
-resource "azurerm_kubernetes_flux_configuration" "flux_configuration" {
+resource "azurerm_kubernetes_cluster-config" "cluster_config" {
   for_each                          = local.kubernetes_clusters
-  name                              = "flux-configuration"
+  name                              = "cluster-config"
   cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace                         = "cluster-config"
   scope                             = "cluster"
@@ -124,7 +124,7 @@ output "kube_config" {
   sensitive   = true
 }
 
-resource "local_file" "kube-config" {
+resource "local_file" "kube_config" {
   for_each             = local.kubernetes_clusters
   content              = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].kube_config_raw
   filename             = "/home/vscode/.kube/${each.value.name}.yaml"
