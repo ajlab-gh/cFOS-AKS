@@ -1,0 +1,18 @@
+#CUDA-test.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu-pod
+spec:
+  containers:
+  - name: gpu-container
+    image: nvidia/cuda:11.0.3-runtime-ubuntu20.04
+    command: ["/bin/bash", "-c", "--"]
+    args: ["while true; do sleep 600; done;"]
+    resources:
+      limits:
+       nvidia.com/gpu: 0
+  tolerations:
+  - key: "nvidia.com/gpu"
+    operator: "Exists"
+    effect: "NoSchedule"

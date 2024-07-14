@@ -66,7 +66,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "node-pool" {
   vm_size               = "Standard_NC24s_v3"
   node_count            = 1
   os_sku                = "AzureLinux"
-  node_labels           = var.user_node_pool_node_labels
   node_taints           = var.user_node_pool_node_taints
   os_disk_type          = "Ephemeral"
   ultra_ssd_enabled     = true
