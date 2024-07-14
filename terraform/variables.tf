@@ -12,6 +12,6 @@ variable "regions" {
   default     = ["eastus"]
 }
 variable "user_node_pool_node_taints" {
-  type        = list(string)
-  default     = ["nvidia.com/gpu=true:NoSchedule"]
+  type    = list(string)
+  default = ["nvidia.com/gpu=true:NoSchedule"]
 }
