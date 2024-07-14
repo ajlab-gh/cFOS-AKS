@@ -35,11 +35,7 @@ spec:
       gpu:
         enabled: true
       models:
-        - deepseek-coder-v2:16b-lite-base-q6_K
-        - llama3:70b
         - nomic-embed-text
-        - mistral:7b-instruct-q8_0
-        - codestral:22b-v0.1-q6_K
         - codestral:latest
     extraEnv:
       - name: OLLAMA_KEEP_ALIVE
