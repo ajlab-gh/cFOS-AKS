@@ -27,14 +27,6 @@ spec:
     extraEnv:
       - name: OLLAMA_KEEP_ALIVE
         value: "-1"
-      - name: NVIDIA_VISIBLE_DEVICES
-        value: "all"
-      - name: NVARCH
-        value: "x86_64"
-      - name: NV_CUDA_CUDART_VERSION
-        value: "12.5"
-      - name: NVIDIA_DRIVER_CAPABILITIES
-        value: "all"
     resources:
       limits:
         nvidia.com/gpu: "0"
