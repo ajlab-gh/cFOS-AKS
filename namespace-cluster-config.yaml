@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: "2024-07-14T18:07:59Z"
+  labels:
+    kubernetes.io/metadata.name: cluster-config
+  name: cluster-config
+  resourceVersion: "5041"
+  uid: 20c5cdca-b6e1-46e5-b11f-aa77cd10e712
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active

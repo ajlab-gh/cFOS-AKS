@@ -93,9 +93,9 @@ resource "azurerm_kubernetes_cluster_extension" "flux_extension" {
   }
 }
 
-resource "azurerm_kubernetes_cluster-config" "cluster_config" {
+resource "azurerm_kubernetes_flux_configuration" "flux_configuration" {
   for_each                          = local.kubernetes_clusters
-  name                              = "cluster-config"
+  name                              = "flux-configuration"
   cluster_id                        = azurerm_kubernetes_cluster.kubernetes_cluster[each.key].id
   namespace                         = "cluster-config"
   scope                             = "cluster"
