@@ -10,9 +10,9 @@ data:
   type: partial
   config: |-
     config firewall vip
-        edit "dvwa-vip"
+        edit "VAR_APP_NAME"
             set extip "fostest-headless"
-            set mappedip VAR_DVWA_CLUSTER_IP
+            set mappedip VAR_CLUSTER_IP
             set extintf "eth0"
             set portforward enable
             set extport "8001"
@@ -26,7 +26,7 @@ data:
             set srcintf "eth0"
             set dstintf "eth0"
             set srcaddr "all"
-            set dstaddr "dvwa-vip"
+            set dstaddr "VAR_APP_NAME"
             set service "ALL"
             set ssl-ssh-profile "certificate-inspection"
             set av-profile "default"
