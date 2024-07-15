@@ -5,3 +5,4 @@ namespace: cluster-config
 resources:
   - bitnami.yaml
   - ollama.yaml
+  - ingress-nginx.yaml
