@@ -107,10 +107,10 @@ resource "azurerm_kubernetes_flux_configuration" "flux_configuration" {
     sync_interval_in_seconds = 60
   }
   kustomizations {
-    name                       = "manifests"
+    name                       = "Kustomization"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests"
+    path                       = "./Kustomization"
     sync_interval_in_seconds   = 60
   }
   depends_on = [
