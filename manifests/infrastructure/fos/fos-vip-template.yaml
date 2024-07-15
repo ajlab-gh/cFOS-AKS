@@ -22,7 +22,7 @@ data:
     config firewall policy
         edit 1
             set utm-status enable
-            set name "dvwa"
+            set name "VAR_APP_NAME"
             set srcintf "eth0"
             set dstintf "eth0"
             set srcaddr "all"
