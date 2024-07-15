@@ -6,3 +6,4 @@ resources:
   - bitnami.yaml
   - ollama.yaml
   - ingress-nginx.yaml
+  - fortiweb-ingress-controller.yaml
