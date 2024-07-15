@@ -5,7 +5,7 @@ metadata:
   name: fortiweb-ingress-controller
   namespace: cluster-config
 spec:
-  targetNamespace: ingress-fortiweb
+  targetNamespace: fortiweb-ingress
   releaseName: fortiweb-ingress-controller
   chart:
     spec:
