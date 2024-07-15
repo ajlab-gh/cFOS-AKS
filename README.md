@@ -18,3 +18,7 @@ export OLLAMA_HOST="${IPADDRESS}:11434"
 
 ollama list
 ```
+
+```bash
+kubectl get ingress -n ollama
+```
