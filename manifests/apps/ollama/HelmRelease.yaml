@@ -41,9 +41,12 @@ spec:
         - nomic-embed-text
         - codestral:latest
     ingress:
+      enabled: true
       className: "fwb-ingress-controller"
       #className: "nginx"
-      enabled: true
+      annotations:
+        #kubernetes.io/ingress.class: fwb-ingress-controller
+        "virtual-server-ip": "192.23.133.6"
       hosts:
         - host: www.bankexample.com
           paths:
