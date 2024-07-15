@@ -6,7 +6,7 @@ metadata:
   namespace: cluster-config
 spec:
   targetNamespace: ingress-nginx
-  releaseName: ingress-nginx
+  releaseName: nginx-ingress-controller
   chart:
     spec:
       chart: nginx-ingress-controller
@@ -14,7 +14,6 @@ spec:
         kind: HelmRepository
         name: bitnami
         namespace: cluster-config
-      version: "1.11.0"
   interval: 10m0s
   install:
     remediation:
