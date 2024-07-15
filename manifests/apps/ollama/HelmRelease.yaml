@@ -26,7 +26,7 @@ spec:
     initContainers:
       - name: init-myservice
         image: alpine/k8s:1.30.2
-        command: ['sh', '-c', 'IPADDRESS=$(kubectl -n ollama get svc ollama -o json | jq -r ".spec.clusterIP"); JSONDATA=$(kubectl -n fos get configmaps fos-vip-template -o json | jq "{data,apiVersion,kind}"); YAMLDATA=$(echo $JSONDATA | yq -P | sed -e s/VAR_CLUSTER_IP/${IPADDRESS}/g | sed -e s/VAR_APP_NAME/ollama/g); echo -e "---\nmetadata:\n  labels:\n    app: fos\n    category: config\n  name: VAR_APP_NAME\n  namespace: fos\n$YAMLDATA" > manifest.yaml; kubectl apply -f manifest.yaml']
+        command: ['sh', '-c', 'IPADDRESS=$(kubectl -n ollama get svc ollama -o json | jq -r ".spec.clusterIP"); JSONDATA=$(kubectl -n fos get configmaps fos-vip-template -o json | jq "{data,apiVersion,kind}"); YAMLDATA=$(echo $JSONDATA | yq -P | sed -e s/VAR_CLUSTER_IP/${IPADDRESS}/g | sed -e s/VAR_APP_NAME/ollama/g); echo -e "---\nmetadata:\n  labels:\n    app: fos\n    category: config\n  name: ollama\n  namespace: fos\n$YAMLDATA" > manifest.yaml; kubectl apply -f manifest.yaml']
     runtimeClass: nvidia
     extraEnv:
       - name: OLLAMA_KEEP_ALIVE
