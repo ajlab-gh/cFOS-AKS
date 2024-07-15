@@ -2,7 +2,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: bitnami
+  name: ollama
+  namespace: cluster-config
 spec:
   interval: 30m
-  url: https://charts.bitnami.com/bitnami
+  url: https://otwld.github.io/ollama-helm/

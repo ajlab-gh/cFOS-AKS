@@ -41,6 +41,7 @@ spec:
         - nomic-embed-text
         - codestral:latest
     ingress:
+      #className: "fwb-ingress-controller"
       className: "nginx"
       enabled: true
       hosts:

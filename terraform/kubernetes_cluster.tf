@@ -93,6 +93,10 @@ resource "azurerm_kubernetes_cluster_extension" "flux_extension" {
   }
 }
 
+data "git_repository" "current" {
+  path = "${path.module}/.."
+}
+
 resource "azurerm_kubernetes_flux_configuration" "flux_configuration" {
   for_each                          = local.kubernetes_clusters
   name                              = "flux-configuration"
@@ -103,15 +107,23 @@ resource "azurerm_kubernetes_flux_configuration" "flux_configuration" {
   git_repository {
     url                      = var.manifest_url
     reference_type           = "branch"
-    reference_value          = "dev"
+    reference_value          = data.git_repository.current.branch
     sync_interval_in_seconds = 60
   }
   kustomizations {
-    name                       = "manifests"
+    name                       = "infrastructure"
     recreating_enabled         = true
     garbage_collection_enabled = true
-    path                       = "./manifests"
+    path                       = "./manifests/infrastructure"
     sync_interval_in_seconds   = 60
+  }
+  kustomizations {
+    name                       = "apps"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+    path                       = "./manifests/apps"
+    sync_interval_in_seconds   = 60
+    depends_on                 = ["infrastructure"]
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux_extension
