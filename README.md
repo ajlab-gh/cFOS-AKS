@@ -24,6 +24,7 @@ ollama list
 ```bash
 kubectl get ingress -n ollama
 kubectl get svc -n ingress-nginx
+kubectl get svc -n fortiweb-ingress
 ```
 
 ## Verify API versions
