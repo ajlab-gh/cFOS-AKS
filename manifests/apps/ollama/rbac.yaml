@@ -2,13 +2,13 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-    name: dvwa-read-svc
-    namespace: dvwa
+    name: read-svc
+    namespace: ollama
 subjects:
     - kind: ServiceAccount
       name: default
       apiGroup: ""
-      namespace: dvwa
+      namespace: ollama
 roleRef:
     kind: ClusterRole
     name: svc-reader
