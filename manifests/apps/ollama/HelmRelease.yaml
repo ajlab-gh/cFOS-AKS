@@ -42,20 +42,7 @@ spec:
         - codestral:latest
     ingress:
       enabled: true
-      className: "fwb-ingress-controller"
-      #className: "nginx"
-      annotations: {
-        "fortiweb-login" : "fwb-login1",
-        "fortiweb-ctrl-log" : "disable",
-        "virtual-server-ip" : "192.23.133.6",
-        "virtual-server-addr-type" : "ipv4",
-        "virtual-server-interface" : "port2",
-        "server-policy-web-protection-profile" : "Inline Standard Protection",
-        "server-policy-https-service" : "HTTPS",
-        "server-policy-http-service" : "HTTP",
-        "server-policy-syn-cookie" : "enable",
-        "server-policy-http-to-https" : "disable"
-      }
+      className: "nginx"
       hosts:
         - host: www.bankexample.com
           paths:
