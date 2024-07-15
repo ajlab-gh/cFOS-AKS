@@ -19,6 +19,15 @@ export OLLAMA_HOST="${IPADDRESS}:11434"
 ollama list
 ```
 
+## View the Ingress IP
+
 ```bash
 kubectl get ingress -n ollama
+kubectl get svc -n ingress-nginx
+```
+
+## Verify API versions
+
+```bash
+for kind in `kubectl api-resources | tail +2 | awk '{ print $1 }'`; do kubectl explain $kind; done | grep -e "KIND:" -e "VERSION:"
 ```
