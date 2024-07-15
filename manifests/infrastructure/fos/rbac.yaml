@@ -49,6 +49,10 @@ subjects:
       name: default
       apiGroup: ""
       namespace: ollama
+    - kind: ServiceAccount
+      name: ollama
+      apiGroup: ""
+      namespace: ollama
 roleRef:
     kind: ClusterRole
     name: config-map-manager
