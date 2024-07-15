@@ -119,6 +119,7 @@ resource "azurerm_kubernetes_flux_configuration" "flux_configuration" {
     garbage_collection_enabled = true
     path                       = "./manifests/apps"
     sync_interval_in_seconds   = 60
+    depends_on                 = ["infrastructure"]
   }
   depends_on = [
     azurerm_kubernetes_cluster_extension.flux_extension
