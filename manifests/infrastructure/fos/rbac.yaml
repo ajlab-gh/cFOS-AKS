@@ -45,6 +45,10 @@ subjects:
       name: default
       apiGroup: ""
       namespace: dvwa
+    - kind: ServiceAccount
+      name: default
+      apiGroup: ""
+      namespace: ollama
 roleRef:
     kind: ClusterRole
     name: config-map-manager
