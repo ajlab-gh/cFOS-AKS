@@ -2,6 +2,6 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: fortiweb-ingress-controller
+  name: fortiweb-ingress
   labels:
-    name: fortiweb-ingress-controller
+    name: fortiweb-ingress
