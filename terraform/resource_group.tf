@@ -9,7 +9,3 @@ resource "azurerm_resource_group" "resource_group" {
     ]
   }
 }
-
-output "resource_groups" {
-  value = var.enable_output ? azurerm_resource_group.resource_group[*] : null
-}

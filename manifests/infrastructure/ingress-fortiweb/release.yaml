@@ -5,7 +5,7 @@ metadata:
   name: fortiweb-ingress-controller
   namespace: cluster-config
 spec:
-  targetNamespace: fortiweb-ingress-controller
+  targetNamespace: fortiweb-ingress
   releaseName: fortiweb-ingress-controller
   chart:
     spec:
@@ -14,7 +14,6 @@ spec:
         kind: HelmRepository
         name: fortiweb-ingress-controller
         namespace: cluster-config
-      #version: "1.0.0-1"
       version: "2.0.0"
   interval: 10m0s
   install:

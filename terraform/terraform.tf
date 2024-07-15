@@ -16,11 +16,23 @@ terraform {
       source  = "hashicorp/http"
       version = "3.4.3"
     }
+    local = {
+      source  = "hashicorp/local"
+      version = "2.4.1"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.6.0"
+    }
   }
 }
 
 provider "azurerm" {
   features {
+    api_management {
+      purge_soft_delete_on_destroy = true
+      recover_soft_deleted         = false
+    }
     resource_group {
       prevent_deletion_if_contains_resources = false
     }

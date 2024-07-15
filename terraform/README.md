@@ -1,7 +1,5 @@
 # terraform
 
-https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2?tabs=azure-cli
-
 https://github.com/Azure/gitops-flux2-kustomize-helm-mt
 
 https://github.com/fluxcd/flux2-kustomize-helm-example
@@ -11,11 +9,7 @@ kubectl logs --tail=200 -l app=fos -n fos
 ```
 
 ```bash
-kubectl get events -n flux-system --field-selector type=Warning
-```
-
-```bash
-kubectl -n store-dev exec --stdin --tty store-firewall-757b68495f-nkcwl -- /bin/cli
+kubectl get events -n cluster-config --field-selector type=Warning
 ```
 
 ```bash
@@ -43,5 +37,4 @@ az feature register --namespace Microsoft.ContainerService --name SafeguardsPrev
 az provider register --namespace Microsoft.Kubernetes
 az provider register --namespace Microsoft.ContainerService
 az provider register --namespace Microsoft.KubernetesConfiguration
-
 ```

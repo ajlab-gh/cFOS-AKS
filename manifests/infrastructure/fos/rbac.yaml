@@ -23,3 +23,29 @@ roleRef:
   kind: ClusterRole
   name: fos-clusterrole
   apiGroup: ""
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+    name: config-map-manager
+rules:
+    - apiGroups: [""]
+      resources: ["configmaps"]
+      verbs: ["create", "get", "list", "watch", "update", "delete", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+    name: config-map-manager
+    namespace: fos
+subjects:
+    - kind: ServiceAccount
+      name: default
+      apiGroup: ""
+      namespace: dvwa
+roleRef:
+    kind: ClusterRole
+    name: config-map-manager
+    apiGroup: ""

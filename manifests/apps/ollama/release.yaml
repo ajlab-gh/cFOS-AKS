@@ -23,19 +23,31 @@ spec:
   upgrade:
     timeout: 20m
   values:
-    gpu:
-      enabled: true
-    nodeSelector:
-      agentpool: "gpu"
+    runtimeClass: nvidia
+    extraEnv:
+      - name: OLLAMA_KEEP_ALIVE
+        value: "-1"
+    resources:
+      limits:
+        nvidia.com/gpu: "0"
+      requests:
+        nvidia.com/gpu: "0"
+    image:
+      tag: "latest"
     ollama:
+      gpu:
+        enabled: true
       models:
-        - deepseek-coder:6.7b-base
-        - llama3:8b
         - nomic-embed-text
-        - mistral
-        - codestral
-    service:
-      type: LoadBalancer
+        - codestral:latest
+    ingress:
+      className: "nginx"
+      enabled: true
+      hosts:
+        - host: www.bankexample.com
+          paths:
+            - path: /
+              pathType: Prefix
     persistentVolume:
       enabled: true
       size: 100Gi
