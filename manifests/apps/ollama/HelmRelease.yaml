@@ -46,7 +46,8 @@ spec:
       #className: "nginx"
       annotations:
         #kubernetes.io/ingress.class: fwb-ingress-controller
-        "virtual-server-ip": "192.23.133.6"
+        "virtual-server-ip": "192.23.133.6",
+        "virtual-server-interface" : "port2"
       hosts:
         - host: www.bankexample.com
           paths:
