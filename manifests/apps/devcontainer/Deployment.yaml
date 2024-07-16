@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: devcontainer
-  namespace: fos
+  namespace: ollama
 spec:
   replicas: 1
   selector:
@@ -15,6 +15,10 @@ spec:
         app: devcontainer
         api: allow
     spec:
+      tolerations:
+      - key: "nvidia.com/gpu"
+        operator: "Exists"
+        effect: "NoSchedule"
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
