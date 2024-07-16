@@ -16,7 +16,7 @@ data:
             set extintf "eth0"
             set portforward enable
             set extport "8001"
-            set mappedport "80"
+            set mappedport "11434"
         next
     end
     config firewall policy
