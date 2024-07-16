@@ -14,7 +14,6 @@ spec:
         kind: HelmRepository
         name: ollama
         namespace: cluster-config
-      version: "0.x"
   interval: 10m0s
   install:
     timeout: 20m
