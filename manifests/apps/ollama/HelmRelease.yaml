@@ -44,7 +44,7 @@ spec:
         - nomic-embed-text
         - codestral:latest
     ingress:
-      enabled: true
+      enabled: false
       className: "nginx"
       hosts:
         - host: www.bankexample.com
