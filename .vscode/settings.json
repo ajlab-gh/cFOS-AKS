@@ -21,19 +21,24 @@
     "bankexample",
     "canadacentral",
     "codestral",
+    "CONFIGDATA",
     "deepseek",
     "devcontainer",
+    "digininja",
     "dvwa",
     "eastus",
     "fluxcd",
     "fortiweb",
     "IPADDRESS",
+    "JSONDATA",
     "Kustomization",
     "kustomizations",
     "kustomize",
     "myip",
+    "myservice",
     "nomic",
     "oidc",
-    "ollama"
+    "ollama",
+    "YAMLDATA"
   ]
 }

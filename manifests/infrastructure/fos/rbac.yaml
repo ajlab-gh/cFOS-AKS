@@ -7,7 +7,6 @@ rules:
     - apiGroups: [""]
       resources: ["secrets", "configmaps", "deployments"]
       verbs: ["create", "get", "list", "watch", "update", "delete", "patch"]
-
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -45,6 +44,10 @@ subjects:
       name: default
       apiGroup: ""
       namespace: dvwa
+    - kind: ServiceAccount
+      name: ollama
+      apiGroup: ""
+      namespace: ollama
 roleRef:
     kind: ClusterRole
     name: config-map-manager

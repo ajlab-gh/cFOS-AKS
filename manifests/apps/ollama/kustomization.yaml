@@ -5,3 +5,5 @@ resources:
   - HelmRelease.yaml
   - HelmRepository.yaml
   - namespace.yaml
+  - rbac.yaml
+  - Ingress.yaml
